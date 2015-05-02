@@ -17,17 +17,8 @@ namespace TypedRoutingTest
 			_configuration = configuration;
 		}
 
-		public void AddRoutes<TController>(string prefix)
-			where TController : IHttpController
+		public void AddRoutes<TController>(List<IRouteConvetion> conventions) where TController : IHttpController
 		{
-
-			var conventions = new List<IRouteConvetion>
-			{
-				new PrefixRouteConvention(prefix),
-				new ParameterNameRouteConvention(),
-				new RawOptionRouteConvention()
-			};
-
 			var type = typeof(TController);
 			var methods = type
 				.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public)

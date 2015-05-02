@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Http;
@@ -17,7 +18,14 @@ namespace TypedRoutingTest
 
 			var conventional = new ConventionalRouter(config);
 
-			conventional.AddRoutes<CandidateController>("candidate/ref");
+			var conventions = new List<IRouteConvetion>
+			{
+				new PrefixRouteConvention("candidate/ref"),
+				new ParameterNameRouteConvention(),
+				new RawOptionRouteConvention()
+			};
+
+			conventional.AddRoutes<CandidateController>(conventions);
 
 		}
 	}
