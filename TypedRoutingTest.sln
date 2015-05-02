@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypedRoutingTest", "TypedRoutingTest\TypedRoutingTest.csproj", "{98DF57BA-1AA9-4463-BC6F-66944EC261D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{99E33CD3-1C8D-41CC-942E-96415E06C330}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{98DF57BA-1AA9-4463-BC6F-66944EC261D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98DF57BA-1AA9-4463-BC6F-66944EC261D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98DF57BA-1AA9-4463-BC6F-66944EC261D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E33CD3-1C8D-41CC-942E-96415E06C330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E33CD3-1C8D-41CC-942E-96415E06C330}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E33CD3-1C8D-41CC-942E-96415E06C330}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E33CD3-1C8D-41CC-942E-96415E06C330}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
