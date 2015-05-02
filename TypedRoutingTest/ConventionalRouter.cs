@@ -41,43 +41,7 @@ namespace TypedRoutingTest
 		}
 	}
 
-	public interface IRouteConvetion
+	namespace Conventions
 	{
-		void Execute(RouteTemplate template);
-	}
-
-	public class ParameterNameRouteConvention : IRouteConvetion
-	{
-		public void Execute(RouteTemplate template)
-		{
-			var parameterNames = template.Method.GetParameters().Select(p => "{" + p.Name + "}");
-			template.Parts.Add(string.Join("/", parameterNames));
-		}
-	}
-
-	public class PrefixRouteConvention : IRouteConvetion
-	{
-		private readonly string _prefix;
-
-		public PrefixRouteConvention(string prefix)
-		{
-			_prefix = prefix.TrimEnd('/');
-		}
-
-		public void Execute(RouteTemplate template)
-		{
-			template.Parts.Insert(0, _prefix);
-		}
-	}
-
-	public class RawOptionRouteConvention : IRouteConvetion
-	{
-		public void Execute(RouteTemplate template)
-		{
-			if (template.Method.Name.EndsWith("Raw"))
-			{
-				template.Parts.Add("raw");
-			}
-		}
 	}
 }

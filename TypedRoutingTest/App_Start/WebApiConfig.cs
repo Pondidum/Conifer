@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using TypedRoutingTest.Controllers;
+using TypedRoutingTest.Conventions;
 
 namespace TypedRoutingTest
 {
