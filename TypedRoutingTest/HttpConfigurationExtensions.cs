@@ -10,7 +10,12 @@ namespace TypedRoutingTest
 		{
 			var route = new TypedRoute(template);
 			configSetup(route);
- 
+
+			return config.TypedRoute(route);
+		}
+
+		public static TypedRoute TypedRoute(this HttpConfiguration config, TypedRoute route)
+		{
 			if (TypedDirectRouteProvider.Routes.ContainsKey(route.ControllerType))
 			{
 				var controllerLevelDictionary = TypedDirectRouteProvider.Routes[route.ControllerType];
@@ -21,7 +26,7 @@ namespace TypedRoutingTest
 				var controllerLevelDictionary = new Dictionary<string, TypedRoute> { { route.ActionName, route } };
 				TypedDirectRouteProvider.Routes.Add(route.ControllerType, controllerLevelDictionary);
 			}
- 
+
 			return route;
 		}
 	}

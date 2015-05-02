@@ -1,4 +1,8 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using System.Web.Http;
+using System.Web.Http.Controllers;
 using TypedRoutingTest.Controllers;
 
 namespace TypedRoutingTest
@@ -11,23 +15,38 @@ namespace TypedRoutingTest
 
 			config.TypedRoute("", c => c.Action<HomeController>(h => h.Get()));
 
+			AddRoutes<CandidateController>(config, "candidate/ref");
 
-			config.TypedRoute(
-				"candidate/ref/{refnum:int}",
-				c => c.Action<CandidateController>(h => h.GetRef(Arg.Any<int>())));
+		}
 
-			config.TypedRoute(
-				"candidate/ref/{refnum:int}/{folder}",
-				c => c.Action<CandidateController>(h => h.GetRefFolder(Arg.Any<int>(), Arg.Any<string>())));
+		private static void AddRoutes<TController>(HttpConfiguration config, string prefix) 
+			where TController : IHttpController
+		{
+			var type = typeof(TController);
+			var methods = type
+				.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public)
+				.Where(m => m.ReturnType != typeof(void))
+				.ToList();
 
-			config.TypedRoute(
-				"candidate/ref/{refnum:int}/{folder}/{file}",
-				c => c.Action<CandidateController>(h => h.GetRefFile(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>())));
+			prefix = prefix.TrimEnd('/');
 
-			config.TypedRoute(
-				"candidate/ref/{refnum:int}/{folder}/{file}/raw",
-				c => c.Action<CandidateController>(h => h.GetRefFileRaw(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>())));
+			foreach (var method in methods)
+			{
+				//make into a convention
+				var parameterNames = method.GetParameters().Select(p => "{" + p.Name + "}");
+				
+				var raw = method.Name.EndsWith("raw", StringComparison.OrdinalIgnoreCase)
+					? "raw"
+					: "";
 
+				var template = string.Format("{0}/{1}/{2}", prefix, string.Join("/", parameterNames), raw);
+
+				var route = new TypedRoute(template);
+				route.Action(method.Name);
+				route.Controller<TController>();
+
+				config.TypedRoute(route);
+			}
 
 		}
 	}
