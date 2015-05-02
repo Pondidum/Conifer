@@ -82,6 +82,7 @@
     <Compile Include="Arg.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="ConventionalRouter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
