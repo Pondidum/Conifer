@@ -60,17 +60,5 @@ namespace TypedRoutingTest
 				_configuration.TypedRoute(route);
 			}
 		}
-
-		private class RouteTemplate
-		{
-			public MethodInfo Method { get; private set; }
-			public List<string> Parts { get; private set; }
-
-			public RouteTemplate(MethodInfo method)
-			{
-				Method = method;
-				Parts = new List<string>();
-			}
-		}
 	}
 }
