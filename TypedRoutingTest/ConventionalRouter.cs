@@ -27,7 +27,7 @@ namespace TypedRoutingTest
 
 			foreach (var method in methods)
 			{
-				var rt = new RouteTemplate(method);
+				var rt = new RouteTemplateBuilder(method);
 				conventions.ForEach(convention => convention.Execute(rt));
 
 				var template = string.Join("/", rt.Parts.Select(p => p.Trim('/')));

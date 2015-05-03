@@ -92,7 +92,7 @@
     <Compile Include="Conventions\PrefixRouteConvention.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Conventions\RawOptionRouteConvention.cs" />
-    <Compile Include="RouteTemplate.cs" />
+    <Compile Include="RouteTemplateBuilder.cs" />
     <Compile Include="TypedDirectRouteProvider.cs" />
     <Compile Include="TypedRoute.cs" />
   </ItemGroup>

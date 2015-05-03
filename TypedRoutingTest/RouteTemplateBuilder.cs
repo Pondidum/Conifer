@@ -3,12 +3,12 @@ using System.Reflection;
 
 namespace TypedRoutingTest
 {
-	public class RouteTemplate
+	public class RouteTemplateBuilder
 	{
 		public MethodInfo Method { get; private set; }
 		public List<string> Parts { get; private set; }
 
-		public RouteTemplate(MethodInfo method)
+		public RouteTemplateBuilder(MethodInfo method)
 		{
 			Method = method;
 			Parts = new List<string>();

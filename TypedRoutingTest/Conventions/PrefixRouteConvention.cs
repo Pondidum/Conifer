@@ -9,7 +9,7 @@ namespace TypedRoutingTest.Conventions
 			_prefix = prefix.TrimEnd('/');
 		}
 
-		public void Execute(RouteTemplate template)
+		public void Execute(RouteTemplateBuilder template)
 		{
 			template.Parts.Insert(0, _prefix);
 		}

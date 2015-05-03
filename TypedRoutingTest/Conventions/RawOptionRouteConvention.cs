@@ -2,7 +2,7 @@ namespace TypedRoutingTest.Conventions
 {
 	public class RawOptionRouteConvention : IRouteConvetion
 	{
-		public void Execute(RouteTemplate template)
+		public void Execute(RouteTemplateBuilder template)
 		{
 			if (template.Method.Name.EndsWith("Raw"))
 			{
