@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace TypedRoutingTest
@@ -12,6 +13,11 @@ namespace TypedRoutingTest
 		{
 			Method = method;
 			Parts = new List<string>();
+		}
+
+		public string Build()
+		{
+			return string.Join("/", Parts.Select(p => p.Trim('/')));
 		}
 	}
 }

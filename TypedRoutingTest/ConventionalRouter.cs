@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 
@@ -30,9 +28,7 @@ namespace TypedRoutingTest
 				var rt = new RouteTemplateBuilder(method);
 				conventions.ForEach(convention => convention.Execute(rt));
 
-				var template = string.Join("/", rt.Parts.Select(p => p.Trim('/')));
-
-				var route = new TypedRoute(template);
+				var route = new TypedRoute(rt.Build());
 				route.Action(method.Name);
 				route.Controller<TController>();
 
