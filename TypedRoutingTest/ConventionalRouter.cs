@@ -40,8 +40,4 @@ namespace TypedRoutingTest
 			}
 		}
 	}
-
-	namespace Conventions
-	{
-	}
 }

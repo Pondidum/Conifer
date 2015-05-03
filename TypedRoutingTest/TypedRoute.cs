@@ -8,31 +8,21 @@ namespace TypedRoutingTest
 {
 	public class TypedRoute : IDirectRouteFactory
 	{
+		private readonly string _template;
+
 		public TypedRoute(string template)
 		{
-			Template = template;
+			_template = template;
 		}
 
 		public Type ControllerType { get; private set; }
-
-		public string RouteName { get; private set; }
-
-		public string Template { get; private set; }
-
-		public string ControllerName
-		{
-			get { return ControllerType != null ? ControllerType.FullName : string.Empty; }
-		}
-
 		public string ActionName { get; private set; }
 
-		public MethodInfo ActionMember { get; private set; }
 
 		RouteEntry IDirectRouteFactory.CreateRoute(DirectRouteFactoryContext context)
 		{
-			var builder = context.CreateBuilder(Template);
+			var builder = context.CreateBuilder(_template);
 
-			builder.Name = RouteName;
 			return builder.Build();
 		}
 
@@ -42,41 +32,19 @@ namespace TypedRoutingTest
 			return this;
 		}
 
-		public TypedRoute Action<T, U>(Expression<Func<T, U>> expression)
-		{
-			ActionMember = GetMethodInfoInternal(expression);
-			ControllerType = ActionMember.DeclaringType;
-			ActionName = ActionMember.Name;
-			return this;
-		}
-
-		public TypedRoute Action<T>(Expression<Action<T>> expression)
-		{
-			ActionMember = GetMethodInfoInternal(expression);
-			ControllerType = ActionMember.DeclaringType;
-			ActionName = ActionMember.Name;
-			return this;
-		}
-
-		private static MethodInfo GetMethodInfoInternal(dynamic expression)
-		{
-			var method = expression.Body as MethodCallExpression;
-			if (method != null)
-				return method.Method;
-
-			throw new ArgumentException("Expression is incorrect!");
-		}
-
-		public TypedRoute Name(string name)
-		{
-			RouteName = name;
-			return this;
-		}
-
 		public TypedRoute Action(string actionName)
 		{
 			ActionName = actionName;
 			return this;
 		}
+
+		//private static MethodInfo GetMethodInfoInternal(dynamic expression)
+		//{
+		//	var method = expression.Body as MethodCallExpression;
+		//	if (method != null)
+		//		return method.Method;
+
+		//	throw new ArgumentException("Expression is incorrect!");
+		//}
 	}
 }

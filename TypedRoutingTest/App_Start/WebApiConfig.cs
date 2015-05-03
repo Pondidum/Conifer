@@ -15,10 +15,7 @@ namespace TypedRoutingTest
 		{
 			config.MapHttpAttributeRoutes(new TypedDirectRouteProvider());
 
-			config.TypedRoute("", c => c.Action<HomeController>(h => h.Get()));
-
 			var conventional = new ConventionalRouter(config);
-
 			var conventions = new List<IRouteConvetion>
 			{
 				new PrefixRouteConvention("candidate/ref"),
@@ -28,6 +25,7 @@ namespace TypedRoutingTest
 
 			conventional.AddRoutes<CandidateController>(conventions);
 
+			conventional.AddRoutes<HomeController>(Enumerable.Empty<IRouteConvetion>().ToList());
 		}
 	}
 }
