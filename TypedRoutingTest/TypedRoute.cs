@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
-using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
 
@@ -8,20 +6,18 @@ namespace TypedRoutingTest
 {
 	public class TypedRoute : IDirectRouteFactory
 	{
-		private readonly string _template;
-
-		public TypedRoute(string template)
-		{
-			_template = template;
-		}
-
+		public string Template { get; private set; }
 		public Type ControllerType { get; private set; }
 		public string ActionName { get; private set; }
 
+		public TypedRoute(string template)
+		{
+			Template = template;
+		}
 
 		RouteEntry IDirectRouteFactory.CreateRoute(DirectRouteFactoryContext context)
 		{
-			var builder = context.CreateBuilder(_template);
+			var builder = context.CreateBuilder(Template);
 
 			return builder.Build();
 		}
@@ -37,14 +33,5 @@ namespace TypedRoutingTest
 			ActionName = actionName;
 			return this;
 		}
-
-		//private static MethodInfo GetMethodInfoInternal(dynamic expression)
-		//{
-		//	var method = expression.Body as MethodCallExpression;
-		//	if (method != null)
-		//		return method.Method;
-
-		//	throw new ArgumentException("Expression is incorrect!");
-		//}
 	}
 }
