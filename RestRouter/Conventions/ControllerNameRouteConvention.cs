@@ -1,7 +1,6 @@
 ﻿using System;
-using RestRouter;
 
-namespace TypedRoutingTest.Conventions
+namespace RestRouter.Conventions
 {
 	public class ControllerNameRouteConvention : IRouteConvetion
 	{

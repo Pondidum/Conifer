@@ -1,7 +1,6 @@
 using System.Linq;
-using RestRouter;
 
-namespace TypedRoutingTest.Conventions
+namespace RestRouter.Conventions
 {
 	public class ParameterNameRouteConvention : IRouteConvetion
 	{

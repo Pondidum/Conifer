@@ -81,14 +81,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Conventions\ControllerNameRouteConvention.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Conventions\ParameterNameRouteConvention.cs" />
-    <Compile Include="Conventions\SpecifiedPartRouteConvention.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Conventions\RawOptionRouteConvention.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
