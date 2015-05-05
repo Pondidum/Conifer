@@ -90,8 +90,11 @@
     <Compile Include="IRouteConvetion.cs" />
     <Compile Include="Conventions\ParameterNameRouteConvention.cs" />
     <Compile Include="Conventions\PrefixRouteConvention.cs" />
+    <Compile Include="MethodBuilder.cs" />
+    <Compile Include="MethodModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Conventions\RawOptionRouteConvention.cs" />
+    <Compile Include="RouteBuilder.cs" />
     <Compile Include="RouteTemplateBuilder.cs" />
     <Compile Include="TypedDirectRouteProvider.cs" />
     <Compile Include="TypedRoute.cs" />
