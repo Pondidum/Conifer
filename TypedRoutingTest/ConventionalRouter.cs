@@ -30,7 +30,7 @@ namespace TypedRoutingTest
 
 			foreach (var method in methods)
 			{
-				var rt = new RouteTemplateBuilder(method);
+				var rt = new RouteTemplateBuilder(type, method);
 				conventions.ForEach(convention => convention.Execute(rt));
 
 				var route = new TypedRoute(rt.Build());
