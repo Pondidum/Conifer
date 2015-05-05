@@ -8,15 +8,16 @@ namespace RestRouter
 {
 	public class ConventionalRouter
 	{
-		public List<TypedRoute> AllRoutes { get; private set; }
-
 		private readonly HttpConfiguration _configuration;
+		private readonly List<TypedRoute> _routes;
 
 		public ConventionalRouter(HttpConfiguration configuration)
 		{
 			_configuration = configuration;
-			AllRoutes = new List<TypedRoute>();
+			_routes = new List<TypedRoute>();
 		}
+
+		public IEnumerable<TypedRoute> Routes  { get { return _routes; } }
 
 		public void AddRoutes<TController>(List<IRouteConvetion> conventions) where TController : IHttpController
 		{
@@ -35,8 +36,22 @@ namespace RestRouter
 				route.Action(method.Name);
 				route.Controller<TController>();
 
-				AllRoutes.Add(route);
-				_configuration.TypedRoute(route);
+				_routes.Add(route);
+				AddToConfiguration(_configuration, route);
+			}
+		}
+
+		private void AddToConfiguration(HttpConfiguration config, TypedRoute route)
+		{
+			if (TypedDirectRouteProvider.Routes.ContainsKey(route.ControllerType))
+			{
+				var controllerLevelDictionary = TypedDirectRouteProvider.Routes[route.ControllerType];
+				controllerLevelDictionary.Add(route.ActionName, route);
+			}
+			else
+			{
+				var controllerLevelDictionary = new Dictionary<string, TypedRoute> { { route.ActionName, route } };
+				TypedDirectRouteProvider.Routes.Add(route.ControllerType, controllerLevelDictionary);
 			}
 		}
 	}
