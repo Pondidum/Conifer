@@ -79,26 +79,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Arg.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="ConventionalRouter.cs" />
     <Compile Include="Conventions\ControllerNameRouteConvention.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HttpConfigurationExtensions.cs" />
-    <Compile Include="IRouteConvetion.cs" />
     <Compile Include="Conventions\ParameterNameRouteConvention.cs" />
     <Compile Include="Conventions\SpecifiedPartRouteConvention.cs" />
-    <Compile Include="MethodBuilder.cs" />
-    <Compile Include="MethodModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Conventions\RawOptionRouteConvention.cs" />
-    <Compile Include="RouteBuilder.cs" />
-    <Compile Include="RouteTemplateBuilder.cs" />
-    <Compile Include="TypedDirectRouteProvider.cs" />
-    <Compile Include="TypedRoute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -111,6 +101,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RestRouter\RestRouter.csproj">
+      <Project>{0ed014a7-c58a-48bb-9799-a4b251d9808a}</Project>
+      <Name>RestRouter</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

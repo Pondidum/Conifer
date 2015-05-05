@@ -1,3 +1,5 @@
+using RestRouter;
+
 namespace TypedRoutingTest.Conventions
 {
 	public class SpecifiedPartRouteConvention : IRouteConvetion

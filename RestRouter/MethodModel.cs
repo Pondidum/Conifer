@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace TypedRoutingTest
+namespace RestRouter
 {
 	public class MethodModel
 	{

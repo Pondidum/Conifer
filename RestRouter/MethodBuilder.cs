@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace TypedRoutingTest
+namespace RestRouter
 {
 	public class MethodBuilder
 	{

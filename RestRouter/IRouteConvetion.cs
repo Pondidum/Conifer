@@ -1,4 +1,4 @@
-namespace TypedRoutingTest
+namespace RestRouter
 {
 	public interface IRouteConvetion
 	{

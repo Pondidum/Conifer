@@ -2,7 +2,7 @@
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
 
-namespace TypedRoutingTest
+namespace RestRouter
 {
 	public class TypedRoute : IDirectRouteFactory
 	{

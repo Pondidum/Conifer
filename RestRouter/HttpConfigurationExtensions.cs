@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
-namespace TypedRoutingTest
+namespace RestRouter
 {
 	public static class HttpConfigurationExtensions
 	{

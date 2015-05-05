@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using RestRouter;
 using TypedRoutingTest.Controllers;
 using TypedRoutingTest.Conventions;
 
