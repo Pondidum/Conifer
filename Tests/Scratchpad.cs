@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using RestRouter;
+using RestRouter.Conventions;
 using Shouldly;
-using TypedRoutingTest;
 using TypedRoutingTest.Controllers;
-using TypedRoutingTest.Conventions;
 using Xunit;
 
 namespace Tests
@@ -26,7 +26,7 @@ namespace Tests
 
 			router.AddRoutes<CandidateController>(conventions);
 
-			var builder = new RouteBuilder(router.AllRoutes);
+			var builder = new RouteBuilder(router.Routes);
 			var route = builder.RouteFor<CandidateController>(c => c.GetRefFileRaw(GetRef(), "cvs", "file.docx"));
 
 			route.ShouldBe("candidate/ref/456/cvs/file.docx/raw", Case.Insensitive);

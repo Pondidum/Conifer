@@ -9,9 +9,9 @@ namespace RestRouter
 	{
 		private readonly List<TypedRoute> _routes;
 
-		public RouteBuilder(List<TypedRoute> routes)
+		public RouteBuilder(IEnumerable<TypedRoute> routes)
 		{
-			_routes = routes;
+			_routes = routes.ToList();
 		}
 
 		public string RouteFor<T>(Expression<Action<T>> expression)

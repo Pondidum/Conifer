@@ -13,6 +13,7 @@ namespace RestRouter
 		protected override IReadOnlyList<IDirectRouteFactory> GetActionRouteFactories(HttpActionDescriptor actionDescriptor)
 		{
 			var factories = base.GetActionRouteFactories(actionDescriptor).ToList();
+
 			if (Routes.ContainsKey(actionDescriptor.ControllerDescriptor.ControllerType))
 			{
 				var controllerLevelDictionary = Routes[actionDescriptor.ControllerDescriptor.ControllerType];
