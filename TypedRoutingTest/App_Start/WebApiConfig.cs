@@ -18,7 +18,8 @@ namespace TypedRoutingTest
 			var conventional = new ConventionalRouter(config);
 			var conventions = new List<IRouteConvetion>
 			{
-				new PrefixRouteConvention("candidate/ref"),
+				new ControllerNameRouteConvention(),
+				new SpecifiedPartRouteConvention("ref"),
 				new ParameterNameRouteConvention(),
 				new RawOptionRouteConvention()
 			};

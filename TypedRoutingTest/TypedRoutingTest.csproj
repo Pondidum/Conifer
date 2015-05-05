@@ -90,7 +90,7 @@
     <Compile Include="HttpConfigurationExtensions.cs" />
     <Compile Include="IRouteConvetion.cs" />
     <Compile Include="Conventions\ParameterNameRouteConvention.cs" />
-    <Compile Include="Conventions\PrefixRouteConvention.cs" />
+    <Compile Include="Conventions\SpecifiedPartRouteConvention.cs" />
     <Compile Include="MethodBuilder.cs" />
     <Compile Include="MethodModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
