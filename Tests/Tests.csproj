@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conventions\ActionEndsWithRawRouteConventionTests.cs" />
     <Compile Include="Conventions\ControllerNameRouteConventionTests.cs" />
     <Compile Include="Conventions\ParameterNameRouteConventionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
