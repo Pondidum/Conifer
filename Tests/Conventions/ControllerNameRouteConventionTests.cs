@@ -40,6 +40,13 @@ namespace Tests.Conventions
 			RunTest<NoSuffix>().Single().ShouldBe("NoSuffix");
 		}
 
+		[Fact]
+		public void When_a_controller_is_just_called_controller()
+		{
+			RunTest<Controller>().ShouldBeEmpty();
+		}
+
+		internal class Controller { }
 		internal class SuffixedController { }
 		internal class TestControllerController { }
 		internal class NoSuffix { }
