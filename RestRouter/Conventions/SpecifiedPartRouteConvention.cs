@@ -6,12 +6,17 @@ namespace RestRouter.Conventions
 
 		public SpecifiedPartRouteConvention(string part)
 		{
-			_part = part.TrimEnd('/');
+			_part = part;
 		}
 
 		public void Execute(RouteTemplateBuilder template)
 		{
-			template.Parts.Add(_part);
+			if (string.IsNullOrWhiteSpace(_part))
+			{
+				return;
+			}
+
+			template.Parts.Add(_part.Trim('/'));
 		}
 	}
 }

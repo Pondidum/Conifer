@@ -58,6 +58,7 @@
     <Compile Include="Conventions\ActionEndsWithRawRouteConventionTests.cs" />
     <Compile Include="Conventions\ControllerNameRouteConventionTests.cs" />
     <Compile Include="Conventions\ParameterNameRouteConventionTests.cs" />
+    <Compile Include="Conventions\SpecifiedPartRouteConventionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scratchpad.cs" />
   </ItemGroup>
