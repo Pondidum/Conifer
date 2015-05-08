@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conventions\ControllerNameRouteConventionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scratchpad.cs" />
   </ItemGroup>
