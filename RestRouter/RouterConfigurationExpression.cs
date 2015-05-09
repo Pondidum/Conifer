@@ -9,10 +9,10 @@ namespace RestRouter
 		private readonly List<IRouteConvention> _defaultConventions;
 		private readonly ConventionalRouter _router;
 
-		public RouterConfigurationExpression(TypedDirectRouteProvider routeProvider)
+		public RouterConfigurationExpression(ConventionalRouter router)
 		{
 			_defaultConventions = Default.Conventions.ToList();
-			_router = new ConventionalRouter(routeProvider);
+			_router = router;
 		}
 
 		public void DefaultConventionsAre(IEnumerable<IRouteConvention> conventions)

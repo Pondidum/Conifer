@@ -7,11 +7,12 @@ namespace RestRouter
 	{
 		public static void AddConventionalRoutes(this HttpConfiguration self, Action<RouterConfigurationExpression> configure)
 		{
-			var router = new TypedDirectRouteProvider();
+			var routeProvider = new TypedDirectRouteProvider();
+			var router = new ConventionalRouter(routeProvider);
 			var expression = new RouterConfigurationExpression(router);
 			configure(expression);
 
-			self.MapHttpAttributeRoutes(router);
+			self.MapHttpAttributeRoutes(routeProvider);
 		}
 	}
 }
