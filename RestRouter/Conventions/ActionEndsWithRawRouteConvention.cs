@@ -1,6 +1,6 @@
 namespace RestRouter.Conventions
 {
-	public class ActionEndsWithRawRouteConvention : IRouteConvetion
+	public class ActionEndsWithRawRouteConvention : IRouteConvention
 	{
 		public void Execute(RouteTemplateBuilder template)
 		{

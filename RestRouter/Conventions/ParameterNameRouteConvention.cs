@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace RestRouter.Conventions
 {
-	public class ParameterNameRouteConvention : IRouteConvetion
+	public class ParameterNameRouteConvention : IRouteConvention
 	{
 		public void Execute(RouteTemplateBuilder template)
 		{

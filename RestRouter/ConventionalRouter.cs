@@ -18,7 +18,7 @@ namespace RestRouter
 
 		public IEnumerable<TypedRoute> Routes  { get { return _routes; } }
 
-		public void AddRoutes<TController>(List<IRouteConvetion> conventions) where TController : IHttpController
+		public void AddRoutes<TController>(List<IRouteConvention> conventions) where TController : IHttpController
 		{
 			var type = typeof(TController);
 			var methods = type

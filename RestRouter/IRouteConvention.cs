@@ -1,6 +1,6 @@
 namespace RestRouter
 {
-	public interface IRouteConvetion
+	public interface IRouteConvention
 	{
 		void Execute(RouteTemplateBuilder template);
 	}

@@ -1,6 +1,6 @@
 namespace RestRouter.Conventions
 {
-	public class SpecifiedPartRouteConvention : IRouteConvetion
+	public class SpecifiedPartRouteConvention : IRouteConvention
 	{
 		private readonly string _part;
 

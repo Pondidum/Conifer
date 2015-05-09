@@ -2,7 +2,7 @@
 
 namespace RestRouter.Conventions
 {
-	public class ControllerNameRouteConvention : IRouteConvetion
+	public class ControllerNameRouteConvention : IRouteConvention
 	{
 		public void Execute(RouteTemplateBuilder template)
 		{
