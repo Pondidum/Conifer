@@ -11,7 +11,7 @@ namespace RestRouter
 
 		public RouterConfigurationExpression(TypedDirectRouteProvider routeProvider)
 		{
-			_defaultConventions = new List<IRouteConvention>();
+			_defaultConventions = Default.Conventions.ToList();
 			_router = new ConventionalRouter(routeProvider);
 		}
 
