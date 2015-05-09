@@ -59,6 +59,7 @@
     <Compile Include="Conventions\SpecifiedPartRouteConvention.cs" />
     <Compile Include="Default.cs" />
     <Compile Include="HttpConfigurationExtensions.cs" />
+    <Compile Include="IConventionalRouter.cs" />
     <Compile Include="IRouteConvention.cs" />
     <Compile Include="MethodBuilder.cs" />
     <Compile Include="MethodModel.cs" />

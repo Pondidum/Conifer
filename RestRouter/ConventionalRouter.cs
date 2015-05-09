@@ -5,7 +5,7 @@ using System.Web.Http.Controllers;
 
 namespace RestRouter
 {
-	public class ConventionalRouter
+	public class ConventionalRouter : IConventionalRouter
 	{
 		private readonly TypedDirectRouteProvider _routeProvider;
 		private readonly List<TypedRoute> _routes;

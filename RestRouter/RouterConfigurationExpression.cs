@@ -7,9 +7,9 @@ namespace RestRouter
 	public class RouterConfigurationExpression
 	{
 		private readonly List<IRouteConvention> _defaultConventions;
-		private readonly ConventionalRouter _router;
+		private readonly IConventionalRouter _router;
 
-		public RouterConfigurationExpression(ConventionalRouter router)
+		public RouterConfigurationExpression(IConventionalRouter router)
 		{
 			_defaultConventions = Default.Conventions.ToList();
 			_router = router;
