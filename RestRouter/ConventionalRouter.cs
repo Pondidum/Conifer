@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Web.Http;
 using System.Web.Http.Controllers;
 
 namespace RestRouter
 {
 	public class ConventionalRouter
 	{
-		private readonly HttpConfiguration _configuration;
+		private readonly TypedDirectRouteProvider _routeProvider;
 		private readonly List<TypedRoute> _routes;
 
-		public ConventionalRouter(HttpConfiguration configuration)
+		public ConventionalRouter(TypedDirectRouteProvider routeProvider)
 		{
-			_configuration = configuration;
+			_routeProvider = routeProvider;
 			_routes = new List<TypedRoute>();
 		}
 
@@ -37,21 +36,7 @@ namespace RestRouter
 				route.Controller<TController>();
 
 				_routes.Add(route);
-				AddToConfiguration(_configuration, route);
-			}
-		}
-
-		private void AddToConfiguration(HttpConfiguration config, TypedRoute route)
-		{
-			if (TypedDirectRouteProvider.Routes.ContainsKey(route.ControllerType))
-			{
-				var controllerLevelDictionary = TypedDirectRouteProvider.Routes[route.ControllerType];
-				controllerLevelDictionary.Add(route.ActionName, route);
-			}
-			else
-			{
-				var controllerLevelDictionary = new Dictionary<string, TypedRoute> { { route.ActionName, route } };
-				TypedDirectRouteProvider.Routes.Add(route.ControllerType, controllerLevelDictionary);
+				_routeProvider.AddRoute(route);
 			}
 		}
 	}
