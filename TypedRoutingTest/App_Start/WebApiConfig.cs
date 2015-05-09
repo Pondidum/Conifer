@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Web.Http;
-using System.Web.Http.Controllers;
 using RestRouter;
 using RestRouter.Conventions;
 using TypedRoutingTest.Controllers;
@@ -14,20 +11,20 @@ namespace TypedRoutingTest
 	{
 		public static void Register(HttpConfiguration config)
 		{
-			config.MapHttpAttributeRoutes(new TypedDirectRouteProvider());
-
-			var conventional = new ConventionalRouter(config);
-			var conventions = new List<IRouteConvetion>
+			var conventions = new List<IRouteConvention>
 			{
 				new ControllerNameRouteConvention(),
 				new SpecifiedPartRouteConvention("ref"),
 				new ParameterNameRouteConvention(),
-				new RawOptionRouteConvention()
+				new ActionEndsWithRawRouteConvention()
 			};
 
-			conventional.AddRoutes<CandidateController>(conventions);
-
-			conventional.AddRoutes<HomeController>(Enumerable.Empty<IRouteConvetion>().ToList());
+			config.AddConventionalRoutes(router =>
+			{
+				router.DefaultConventionsAre(conventions);
+				router.Add<CandidateController>(); //uses default conventions
+				router.Add<HomeController>(Enumerable.Empty<IRouteConvention>()); //uses none
+			});
 		}
 	}
 }
