@@ -14,7 +14,7 @@ namespace Tests.Conventions
 		{
 			var method = GetType().GetMethod("ToString");
 
-			var template = new RouteTemplateBuilder(typeof(T), method);
+			var template = new TypedRouteBuilder(typeof(T), method);
 
 			var convention = new ControllerNameRouteConvention();
 			convention.Execute(template);

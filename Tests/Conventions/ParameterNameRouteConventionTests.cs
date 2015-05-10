@@ -14,7 +14,7 @@ namespace Tests.Conventions
 		{
 			var method = GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
 
-			var template = new RouteTemplateBuilder(typeof(Controller), method);
+			var template = new TypedRouteBuilder(typeof(Controller), method);
 
 			var convention = new ParameterNameRouteConvention();
 			convention.Execute(template);

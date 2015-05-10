@@ -4,7 +4,7 @@ namespace RestRouter.Conventions
 {
 	public class ParameterNameRouteConvention : IRouteConvention
 	{
-		public void Execute(RouteTemplateBuilder template)
+		public void Execute(TypedRouteBuilder template)
 		{
 			template.Parts.AddRange(template.Method.GetParameters().Select(p => "{" + p.Name + "}"));
 		}

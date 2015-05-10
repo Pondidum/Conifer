@@ -9,7 +9,7 @@ namespace RestRouter.Conventions
 			_part = part;
 		}
 
-		public void Execute(RouteTemplateBuilder template)
+		public void Execute(TypedRouteBuilder template)
 		{
 			if (string.IsNullOrWhiteSpace(_part))
 			{

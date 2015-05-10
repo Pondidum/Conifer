@@ -4,7 +4,7 @@ namespace RestRouter.Conventions
 {
 	public class ControllerNameRouteConvention : IRouteConvention
 	{
-		public void Execute(RouteTemplateBuilder template)
+		public void Execute(TypedRouteBuilder template)
 		{
 			var name = template.Controller.Name;
 

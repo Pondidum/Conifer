@@ -5,21 +5,23 @@ using System.Reflection;
 
 namespace RestRouter
 {
-	public class RouteTemplateBuilder
+	public class TypedRouteBuilder
 	{
 		public Type Controller { get; private set; }
 		public MethodInfo Method { get; private set; }
 		public List<string> Parts { get; private set; }
 
-		public RouteTemplateBuilder(Type controller, MethodInfo method)
+		public TypedRouteBuilder(Type controller, MethodInfo method)
 		{
 			Controller = controller;
 			Method = method;
 			Parts = new List<string>();
 		}
 
-		public TypedRoute Build()
+		public TypedRoute Build(List<IRouteConvention> conventions )
 		{
+			conventions.ForEach(convention => convention.Execute(this));
+
 			var template = string.Join("/", Parts.Select(p => p.Trim('/')));
 
 			return new TypedRoute(template, Controller, Method.Name);

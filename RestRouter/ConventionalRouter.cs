@@ -25,23 +25,21 @@ namespace RestRouter
 
 			foreach (var template in methods)
 			{
-				conventions.ForEach(convention => convention.Execute(template));
-
-				var route = template.Build();
+				var route = template.Build(conventions);
 
 				_routes.Add(route);
 				_routeProvider.AddRoute(route);
 			}
 		}
 
-		private static List<RouteTemplateBuilder> FindMethods<TController>() where TController : IHttpController
+		private static List<TypedRouteBuilder> FindMethods<TController>() where TController : IHttpController
 		{
 			var type = typeof(TController);
 			
 			return type
 				.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public)
 				.Where(m => m.ReturnType != typeof (void))
-				.Select(m => new RouteTemplateBuilder(type, m))
+				.Select(m => new TypedRouteBuilder(type, m))
 				.ToList();
 		}
 	}
