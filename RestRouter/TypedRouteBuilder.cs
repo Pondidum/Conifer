@@ -11,9 +11,9 @@ namespace RestRouter
 		public MethodInfo Method { get; private set; }
 		public List<string> Parts { get; private set; }
 
-		public RouteTemplateBuilder(MethodInfo method)
+		public RouteTemplateBuilder(Type controller, MethodInfo method)
 		{
-			Controller = method.DeclaringType;
+			Controller = controller;
 			Method = method;
 			Parts = new List<string>();
 		}

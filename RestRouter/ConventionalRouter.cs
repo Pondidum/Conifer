@@ -41,7 +41,7 @@ namespace RestRouter
 			return type
 				.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public)
 				.Where(m => m.ReturnType != typeof (void))
-				.Select(m => new RouteTemplateBuilder(m))
+				.Select(m => new RouteTemplateBuilder(type, m))
 				.ToList();
 		}
 	}
