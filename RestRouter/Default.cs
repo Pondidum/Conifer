@@ -11,6 +11,7 @@ namespace RestRouter
 		{
 			Conventions = new IRouteConvention[]
 			{
+				new NamespaceRouteConvention(), 
 				new ControllerNameRouteConvention(),
 				new ParameterNameRouteConvention(),
 				new ActionEndsWithRawRouteConvention()
