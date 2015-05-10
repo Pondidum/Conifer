@@ -40,6 +40,14 @@ namespace Tests
 		}
 
 		[Fact]
+		public void When_no_default_conventions_are_specified_and_null_is_specified()
+		{
+			_expression.Add<Controller>(null);
+
+			_router.Received().AddRoutes<Controller>(Arg.Do<List<IRouteConvention>>(x => x.ShouldBeEmpty()));
+		}
+
+		[Fact]
 		public void When_default_conventions_are_specified()
 		{
 			_expression.DefaultConventionsAre(new[] { new ControllerNameRouteConvention() });
