@@ -10,7 +10,7 @@ namespace Tests
 {
 	public class TypedRouteBuilderTests
 	{
-		private readonly TypedRoute _route;
+		private readonly TypedRouteBuilder _builder;
 		private readonly Type _controller;
 		private readonly MethodInfo _method;
 
@@ -19,29 +19,37 @@ namespace Tests
 			_controller = typeof(IHttpController);
 			_method = _controller.GetMethods().First();
 
-			var builder = new TypedRouteBuilder(_controller, _method);
-			builder.Parts.Add("First");
-			builder.Parts.Add("Second");
-
-			_route = builder.Build(Enumerable.Empty<IRouteConvention>().ToList());
+			_builder = new TypedRouteBuilder(_controller, _method);
+			_builder.Parts.Add("First");
+			_builder.Parts.Add("Second");
 		}
 
 		[Fact]
 		public void When_building_a_route_with_parts()
 		{
-			_route.Template.ShouldBe("First/Second");
+			var route = _builder.Build(Enumerable.Empty<IRouteConvention>().ToList());
+
+			route.ShouldSatisfyAllConditions(
+				() => route.Template.ShouldBe("First/Second"),
+				() => route.ControllerType.ShouldBe(_controller),
+				() => route.ActionName.ShouldBe(_method.Name)
+			);
 		}
 
 		[Fact]
-		public void The_controller_is_named()
+		public void When_conventions_are_specified()
 		{
-			_route.ControllerType.ShouldBe(_controller);
+			var route = _builder.Build(new IRouteConvention[] {new TestConvention()}.ToList());
+
+			route.Template.ShouldBeEmpty();
 		}
 
-		[Fact]
-		public void The_action_is_named()
+		private class TestConvention : IRouteConvention
 		{
-			_route.ActionName.ShouldBe(_method.Name);
+			public void Execute(TypedRouteBuilder template)
+			{
+				template.Parts.Clear();
+			}
 		}
 	}
 }
