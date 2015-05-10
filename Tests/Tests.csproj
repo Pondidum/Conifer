@@ -66,6 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouterConfigurationExpressionTests.cs" />
     <Compile Include="Scratchpad.cs" />
+    <Compile Include="TypedRouteTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
