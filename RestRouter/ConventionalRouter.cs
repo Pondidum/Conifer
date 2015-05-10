@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Http.Controllers;
@@ -20,24 +21,30 @@ namespace RestRouter
 
 		public void AddRoutes<TController>(List<IRouteConvention> conventions) where TController : IHttpController
 		{
-			var type = typeof(TController);
-			var methods = type
-				.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public)
-				.Where(m => m.ReturnType != typeof(void))
-				.ToList();
+			var methods = FindMethods<TController>();
 
-			foreach (var method in methods)
+			foreach (var template in methods)
 			{
-				var rt = new RouteTemplateBuilder(type, method);
-				conventions.ForEach(convention => convention.Execute(rt));
+				conventions.ForEach(convention => convention.Execute(template));
 
-				var route = new TypedRoute(rt.Build());
-				route.Action(method.Name);
+				var route = new TypedRoute(template.Build());
+				route.Action(template.Method.Name);
 				route.Controller<TController>();
 
 				_routes.Add(route);
 				_routeProvider.AddRoute(route);
 			}
+		}
+
+		private static List<RouteTemplateBuilder> FindMethods<TController>() where TController : IHttpController
+		{
+			var type = typeof(TController);
+			
+			return type
+				.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public)
+				.Where(m => m.ReturnType != typeof (void))
+				.Select(m => new RouteTemplateBuilder(m))
+				.ToList();
 		}
 	}
 }
