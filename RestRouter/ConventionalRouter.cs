@@ -27,9 +27,7 @@ namespace RestRouter
 			{
 				conventions.ForEach(convention => convention.Execute(template));
 
-				var route = new TypedRoute(template.Build());
-				route.Action(template.Method.Name);
-				route.Controller<TController>();
+				var route = template.Build();
 
 				_routes.Add(route);
 				_routeProvider.AddRoute(route);

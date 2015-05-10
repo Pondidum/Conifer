@@ -18,9 +18,11 @@ namespace RestRouter
 			Parts = new List<string>();
 		}
 
-		public string Build()
+		public TypedRoute Build()
 		{
-			return string.Join("/", Parts.Select(p => p.Trim('/')));
+			var template = string.Join("/", Parts.Select(p => p.Trim('/')));
+
+			return new TypedRoute(template, Controller, Method.Name);
 		}
 	}
 }

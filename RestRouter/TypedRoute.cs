@@ -10,9 +10,18 @@ namespace RestRouter
 		public Type ControllerType { get; private set; }
 		public string ActionName { get; private set; }
 
-		public TypedRoute(string template)
+		public TypedRoute(string template, Type controller, string actionName)
 		{
+			if (typeof(IHttpController).IsAssignableFrom(controller) == false)
+			{
+				throw new ArgumentException(
+					string.Format("{0} does not implement IHttpController.", controller),
+					"controller");
+			}
+
 			Template = template;
+			ControllerType = controller;
+			ActionName = actionName;
 		}
 
 		RouteEntry IDirectRouteFactory.CreateRoute(DirectRouteFactoryContext context)
@@ -20,18 +29,6 @@ namespace RestRouter
 			var builder = context.CreateBuilder(Template);
 
 			return builder.Build();
-		}
-
-		public TypedRoute Controller<TController>() where TController : IHttpController
-		{
-			ControllerType = typeof(TController);
-			return this;
-		}
-
-		public TypedRoute Action(string actionName)
-		{
-			ActionName = actionName;
-			return this;
 		}
 	}
 }
