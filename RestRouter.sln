@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestRouter", "RestRouter\RestRouter.csproj", "{0ED014A7-C58A-48BB-9799-A4B251D9808A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.WebApi", "Test.WebApi\Test.WebApi.csproj", "{975C489B-0487-4C42-92CD-CB786AE73906}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0ED014A7-C58A-48BB-9799-A4B251D9808A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ED014A7-C58A-48BB-9799-A4B251D9808A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0ED014A7-C58A-48BB-9799-A4B251D9808A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{975C489B-0487-4C42-92CD-CB786AE73906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{975C489B-0487-4C42-92CD-CB786AE73906}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{975C489B-0487-4C42-92CD-CB786AE73906}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{975C489B-0487-4C42-92CD-CB786AE73906}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
