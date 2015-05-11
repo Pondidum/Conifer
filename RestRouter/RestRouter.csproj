@@ -59,13 +59,13 @@
     <Compile Include="Conventions\ActionEndsWithRawRouteConvention.cs" />
     <Compile Include="Conventions\SpecifiedPartRouteConvention.cs" />
     <Compile Include="Default.cs" />
-    <Compile Include="HttpConfigurationExtensions.cs" />
     <Compile Include="IConventionalRouter.cs" />
     <Compile Include="IRouteConvention.cs" />
     <Compile Include="MethodBuilder.cs" />
     <Compile Include="MethodModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteBuilder.cs" />
+    <Compile Include="Router.cs" />
     <Compile Include="RouterConfigurationExpression.cs" />
     <Compile Include="TypedRouteBuilder.cs" />
     <Compile Include="TypedDirectRouteProvider.cs" />
