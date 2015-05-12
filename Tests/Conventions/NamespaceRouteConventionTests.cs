@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using RestRouter;
 using RestRouter.Conventions;
 using Shouldly;
@@ -8,44 +10,58 @@ namespace Tests.Conventions
 {
 	public class NamespaceRouteConventionTests
 	{
-		private readonly TypedRouteBuilder _builder;
-
-		public NamespaceRouteConventionTests()
-		{
-			var method = GetType().GetMethod("ToString");
-			_builder = new TypedRouteBuilder(typeof(Controllers.Controller), method);
-		}
-
 		[Fact]
 		public void The_namespace_should_be_split()
 		{
-			var convention = new NamespaceRouteConvention();
-			convention.Execute(_builder);
+			var result = Test<Controllers.Controller>(new NamespaceRouteConvention());
 
-			_builder.Parts.ShouldBe(new[] { "Conventions" }.ToList());
+			result.ShouldBe(new[] { "Conventions" }.ToList());
 		}
 
 		[Fact]
 		public void When_not_ignoring_the_root_namespace()
 		{
-			var convention = new NamespaceRouteConvention().DontIgnoreRootNamespace();
-			convention.Execute(_builder);
+			var result = Test<Controllers.Controller>(new NamespaceRouteConvention().DontIgnoreRootNamespace());
 
-			_builder.Parts.ShouldBe(new[] { "Tests", "Conventions" }.ToList());
+			result.ShouldBe(new[] { "Tests", "Conventions" }.ToList());
 		}
 
 		[Fact]
 		public void When_not_ignoring_the_controller_namespace()
 		{
-			var convention = new NamespaceRouteConvention().DontIgnoreControllersNamespace();
-			convention.Execute(_builder);
+			var result = Test<Controllers.Controller>(new NamespaceRouteConvention().DontIgnoreControllersNamespace());
 
-			_builder.Parts.ShouldBe(new[]{ "Conventions", "Controllers"});
+			result.ShouldBe(new[] { "Conventions", "Controllers" });
+		}
+
+		[Fact]
+		public void When_ignoring_a_namespace_prefix()
+		{
+			var result = Test<Candidates.CandidateController>(new NamespaceRouteConvention().IgnoreThePrefix("Tests.Conventions"));
+
+			result.ShouldBe(new[] { "Candidates" });
+		}
+
+
+		private List<string> Test<TController>(NamespaceRouteConvention convention)
+		{
+
+			var method = GetType().GetMethod("ToString");
+			var builder = new TypedRouteBuilder(typeof(TController), method);
+
+			convention.Execute(builder);
+
+			return builder.Parts;
 		}
 	}
 
 	namespace Controllers
 	{
 		internal class Controller { }
+	}
+
+	namespace Candidates
+	{
+		internal class CandidateController { }
 	}
 }

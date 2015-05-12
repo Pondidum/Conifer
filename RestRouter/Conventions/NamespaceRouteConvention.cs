@@ -7,6 +7,7 @@ namespace RestRouter.Conventions
 	{
 		private bool _ignoreRootNamespace;
 		private bool _ignoreControllersNamespace;
+		private string _prefix;
 
 		public NamespaceRouteConvention()
 		{
@@ -26,6 +27,13 @@ namespace RestRouter.Conventions
 			return this;
 		}
 
+		public NamespaceRouteConvention IgnoreThePrefix(string ns)
+		{
+			_prefix = ns.TrimEnd('.') + '.';
+			_ignoreRootNamespace = false;
+			return this;
+		}
+
 		public void Execute(TypedRouteBuilder template)
 		{
 			var controller = template.Controller;
@@ -34,6 +42,14 @@ namespace RestRouter.Conventions
 			if (string.IsNullOrWhiteSpace(ns))
 			{
 				return;
+			}
+
+			if (string.IsNullOrWhiteSpace(_prefix) == false)
+			{
+				if (ns.StartsWith(_prefix, StringComparison.OrdinalIgnoreCase))
+				{
+					ns = ns.Substring(_prefix.Length);
+				}
 			}
 
 			var segments = ns.Split('.').AsEnumerable();
