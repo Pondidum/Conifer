@@ -5,13 +5,25 @@ namespace RestRouter.Conventions
 {
 	public class NamespaceRouteConvention : IRouteConvention
 	{
-		public bool IgnoreRootNamespace { get; set; }
-		public bool IgnoreControllersNamespace { get; set; }
+		private bool _ignoreRootNamespace;
+		private bool _ignoreControllersNamespace;
 
 		public NamespaceRouteConvention()
 		{
-			IgnoreRootNamespace = true;
-			IgnoreControllersNamespace = true;
+			_ignoreRootNamespace = true;
+			_ignoreControllersNamespace = true;
+		}
+
+		public NamespaceRouteConvention DontIgnoreRootNamespace()
+		{
+			_ignoreRootNamespace = false;
+			return this;
+		}
+
+		public NamespaceRouteConvention DontIgnoreControllersNamespace()
+		{
+			_ignoreControllersNamespace = false;
+			return this;
 		}
 
 		public void Execute(TypedRouteBuilder template)
@@ -26,13 +38,13 @@ namespace RestRouter.Conventions
 
 			var segments = ns.Split('.').AsEnumerable();
 
-			if (IgnoreRootNamespace)
+			if (_ignoreRootNamespace)
 			{
 				segments = segments
 					.Skip(1);
 			}
 
-			if (IgnoreControllersNamespace)
+			if (_ignoreControllersNamespace)
 			{
 				segments = segments
 					.Where(s => s.Equals("controllers", StringComparison.OrdinalIgnoreCase) == false);

@@ -26,9 +26,9 @@ namespace Tests.Conventions
 		}
 
 		[Fact]
-		public void FactMethodName()
+		public void When_not_ignoring_the_root_namespace()
 		{
-			var convention = new NamespaceRouteConvention { IgnoreRootNamespace = false };
+			var convention = new NamespaceRouteConvention().DontIgnoreRootNamespace();
 			convention.Execute(_builder);
 
 			_builder.Parts.ShouldBe(new[] { "Tests", "Conventions" }.ToList());
@@ -37,7 +37,7 @@ namespace Tests.Conventions
 		[Fact]
 		public void When_not_ignoring_the_controller_namespace()
 		{
-			var convention = new NamespaceRouteConvention {IgnoreControllersNamespace = false};
+			var convention = new NamespaceRouteConvention().DontIgnoreControllersNamespace();
 			convention.Execute(_builder);
 
 			_builder.Parts.ShouldBe(new[]{ "Conventions", "Controllers"});
