@@ -1,19 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace RestRouter.Conventions
 {
 	public class NamespaceRouteConvention : IRouteConvention
 	{
-		private readonly bool _ignoreRootNamespace;
+		public bool IgnoreRootNamespace { get; set; }
+		public bool IgnoreControllersNamespace { get; set; }
 
 		public NamespaceRouteConvention()
-			: this(true)
 		{
-		}
-
-		public NamespaceRouteConvention(bool ignoreRootNamespace)
-		{
-			_ignoreRootNamespace = ignoreRootNamespace;
+			IgnoreRootNamespace = true;
+			IgnoreControllersNamespace = true;
 		}
 
 		public void Execute(TypedRouteBuilder template)
@@ -28,9 +26,16 @@ namespace RestRouter.Conventions
 
 			var segments = ns.Split('.').AsEnumerable();
 
-			if (_ignoreRootNamespace)
+			if (IgnoreRootNamespace)
 			{
-				segments = segments.Skip(1);
+				segments = segments
+					.Skip(1);
+			}
+
+			if (IgnoreControllersNamespace)
+			{
+				segments = segments
+					.Where(s => s.Equals("controllers", StringComparison.OrdinalIgnoreCase) == false);
 			}
 
 			template.Parts.AddRange(segments);

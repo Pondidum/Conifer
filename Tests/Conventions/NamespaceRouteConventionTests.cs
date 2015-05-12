@@ -13,7 +13,7 @@ namespace Tests.Conventions
 		public NamespaceRouteConventionTests()
 		{
 			var method = GetType().GetMethod("ToString");
-			_builder = new TypedRouteBuilder(typeof(Controller), method);
+			_builder = new TypedRouteBuilder(typeof(Controllers.Controller), method);
 		}
 
 		[Fact]
@@ -28,13 +28,24 @@ namespace Tests.Conventions
 		[Fact]
 		public void FactMethodName()
 		{
-			var convention = new NamespaceRouteConvention(ignoreRootNamespace: false);
+			var convention = new NamespaceRouteConvention { IgnoreRootNamespace = false };
 			convention.Execute(_builder);
 
 			_builder.Parts.ShouldBe(new[] { "Tests", "Conventions" }.ToList());
 		}
+
+		[Fact]
+		public void When_not_ignoring_the_controller_namespace()
+		{
+			var convention = new NamespaceRouteConvention {IgnoreControllersNamespace = false};
+			convention.Execute(_builder);
+
+			_builder.Parts.ShouldBe(new[]{ "Conventions", "Controllers"});
+		}
 	}
 
-	internal class Controller { }
-
+	namespace Controllers
+	{
+		internal class Controller { }
+	}
 }
