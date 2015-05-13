@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="ConventionalRouter.cs" />
     <Compile Include="Conventions\ControllerNameRouteConvention.cs" />
+    <Compile Include="Conventions\MethodNameRouteConvention.cs" />
     <Compile Include="Conventions\NamespaceRouteConvention.cs" />
     <Compile Include="Conventions\ParameterNameRouteConvention.cs" />
     <Compile Include="Conventions\ActionEndsWithRawRouteConvention.cs" />

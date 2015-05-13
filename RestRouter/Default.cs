@@ -13,6 +13,7 @@ namespace RestRouter
 			{
 				new NamespaceRouteConvention(), 
 				new ControllerNameRouteConvention(),
+				new MethodNameRouteConvention(), 
 				new ParameterNameRouteConvention(),
 				new ActionEndsWithRawRouteConvention()
 			};
