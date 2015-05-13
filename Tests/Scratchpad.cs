@@ -12,28 +12,6 @@ namespace Tests
 		[Fact]
 		public void When_testing_something()
 		{
-			//var conventions = new List<IRouteConvetion>
-			//{
-			//	new ControllerNameRouteConvention(),
-			//	new SpecifiedPartRouteConvention("ref"),
-			//	new ParameterNameRouteConvention(),
-			//	new RawOptionRouteConvention()
-			//};
-
-			//var config = new HttpConfiguration();
-			//var router = new ConventionalRouter(config);
-
-			//router.AddRoutes<CandidateController>(conventions);
-
-			//var builder = new RouteBuilder(router.Routes);
-			//var route = builder.RouteFor<CandidateController>(c => c.GetRefFileRaw(GetRef(), "cvs", "file.docx"));
-
-			//route.ShouldBe("candidate/ref/456/cvs/file.docx/raw", Case.Insensitive);
-		}
-
-		private int GetRef()
-		{
-			return 456;
 		}
 	}
 }
