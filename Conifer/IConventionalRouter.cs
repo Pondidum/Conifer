@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http.Controllers;
 
-namespace RestRouter
+namespace Conifer
 {
 	public interface IConventionalRouter
 	{

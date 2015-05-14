@@ -2,7 +2,7 @@
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
 
-namespace RestRouter
+namespace Conifer
 {
 	public class TypedRoute : IDirectRouteFactory
 	{

@@ -1,4 +1,4 @@
-namespace RestRouter.Conventions
+namespace Conifer.Conventions
 {
 	public class SpecifiedPartRouteConvention : IRouteConvention
 	{

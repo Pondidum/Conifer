@@ -6,7 +6,7 @@ ci_build = ENV['APPVEYOR_BUILD_VERSION'] ||= "0"
 tool_nuget = 'tools/nuget/nuget.exe'
 tool_xunit = 'tools/xunit/xunit.console.clr4.exe'
 
-project_name = 'RestRouter'
+project_name = 'Conifer'
 project_version = "1.0.#{ci_build}"
 
 project_output = 'build/bin'
@@ -55,8 +55,8 @@ nugets_pack :pack do |n|
   n.with_metadata do |m|
     m.description = 'Strong Typed route building, generating and registering'
     m.authors = 'Andy Dote'
-    m.project_url = 'https://github.com/pondidum/RestRouter'
-    m.license_url = 'https://github.com/Pondidum/RestRouter/blob/master/LICENSE.txt'
+    m.project_url = 'https://github.com/pondidum/Conifer'
+    m.license_url = 'https://github.com/Pondidum/Conifer/blob/master/LICENSE.txt'
     m.version = project_version
     m.tags = 'rest router webapi mvc routing'
   end

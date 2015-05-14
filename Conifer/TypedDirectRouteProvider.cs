@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
 
-namespace RestRouter
+namespace Conifer
 {
 	public class TypedDirectRouteProvider : DefaultDirectRouteProvider
 	{

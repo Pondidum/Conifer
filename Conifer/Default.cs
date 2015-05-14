@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using RestRouter.Conventions;
+using Conifer.Conventions;
 
-namespace RestRouter
+namespace Conifer
 {
 	public class Default
 	{
@@ -11,9 +11,9 @@ namespace RestRouter
 		{
 			Conventions = new IRouteConvention[]
 			{
-				new NamespaceRouteConvention(), 
+				new NamespaceRouteConvention(),
 				new ControllerNameRouteConvention(),
-				new MethodNameRouteConvention(), 
+				new MethodNameRouteConvention(),
 				new ParameterNameRouteConvention(),
 				new ActionEndsWithRawRouteConvention()
 			};

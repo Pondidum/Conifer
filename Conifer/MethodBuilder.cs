@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace RestRouter
+namespace Conifer
 {
 	public class MethodBuilder
 	{
@@ -33,6 +33,6 @@ namespace RestRouter
 			info.Class = typeof(T);
 
 			return info;
-		} 
+		}
 	}
 }

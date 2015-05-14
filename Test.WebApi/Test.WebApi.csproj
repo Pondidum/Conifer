@@ -105,9 +105,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\RestRouter\RestRouter.csproj">
+    <ProjectReference Include="..\Conifer\Conifer.csproj">
       <Project>{0ed014a7-c58a-48bb-9799-a4b251d9808a}</Project>
-      <Name>RestRouter</Name>
+      <Name>Conifer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -135,7 +135,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

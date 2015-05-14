@@ -1,4 +1,4 @@
-namespace RestRouter
+namespace Conifer
 {
 	public interface IRouteConvention
 	{

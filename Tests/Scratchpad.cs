@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using RestRouter;
-using RestRouter.Conventions;
+using Conifer;
+using Conifer.Conventions;
 using Shouldly;
 using Xunit;
 

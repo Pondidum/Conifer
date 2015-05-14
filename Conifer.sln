@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{99E33CD3-1C8D-41CC-942E-96415E06C330}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestRouter", "RestRouter\RestRouter.csproj", "{0ED014A7-C58A-48BB-9799-A4B251D9808A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conifer", "Conifer\Conifer.csproj", "{0ED014A7-C58A-48BB-9799-A4B251D9808A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.WebApi", "Test.WebApi\Test.WebApi.csproj", "{975C489B-0487-4C42-92CD-CB786AE73906}"
 EndProject

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Http;
 
-namespace RestRouter
+namespace Conifer
 {
 	public class Router
 	{
@@ -16,6 +16,6 @@ namespace RestRouter
 			httpConfiguration.MapHttpAttributeRoutes(new TypedDirectRouteProvider(routeBuilder));
 
 			return routeBuilder;
-		} 
+		}
 	}
 }

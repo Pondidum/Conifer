@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace RestRouter.Conventions
+namespace Conifer.Conventions
 {
 	public class ParameterNameRouteConvention : IRouteConvention
 	{

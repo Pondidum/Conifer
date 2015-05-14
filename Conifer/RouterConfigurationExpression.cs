@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Http.Controllers;
 
-namespace RestRouter
+namespace Conifer
 {
 	public class RouterConfigurationExpression
 	{
@@ -31,6 +31,6 @@ namespace RestRouter
 			if (conventions == null) conventions = Enumerable.Empty<IRouteConvention>();
 
 			_router.AddRoutes<TController>(conventions.ToList());
-		} 
+		}
 	}
 }

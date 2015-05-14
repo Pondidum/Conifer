@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using RestRouter;
-using RestRouter.Conventions;
+using Conifer;
+using Conifer.Conventions;
 using Shouldly;
 using Xunit;
 

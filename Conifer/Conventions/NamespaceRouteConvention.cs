@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace RestRouter.Conventions
+namespace Conifer.Conventions
 {
 	public class NamespaceRouteConvention : IRouteConvention
 	{

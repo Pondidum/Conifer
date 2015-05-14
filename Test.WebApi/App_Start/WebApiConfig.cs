@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
-using RestRouter;
-using RestRouter.Conventions;
+using Conifer;
+using Conifer.Conventions;
 using StructureMap;
 using StructureMap.Graph;
 using Test.WebApi.Controllers;
@@ -18,7 +18,7 @@ namespace Test.WebApi
 				r.DefaultConventionsAre(new IRouteConvention[]
 				{
 					new ControllerNameRouteConvention(),
-					new MethodNameRouteConvention(), 
+					new MethodNameRouteConvention(),
 					new ParameterNameRouteConvention(),
 					new ActionEndsWithRawRouteConvention()
 				});

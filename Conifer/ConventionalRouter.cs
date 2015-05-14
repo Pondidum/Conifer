@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Http.Controllers;
 
-namespace RestRouter
+namespace Conifer
 {
 	public class ConventionalRouter : IConventionalRouter
 	{
@@ -32,7 +32,7 @@ namespace RestRouter
 		private static List<TypedRouteBuilder> FindMethods<TController>() where TController : IHttpController
 		{
 			var type = typeof(TController);
-			
+
 			return type
 				.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public)
 				.Where(m => m.ReturnType != typeof (void))

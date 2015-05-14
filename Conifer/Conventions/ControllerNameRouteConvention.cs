@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestRouter.Conventions
+namespace Conifer.Conventions
 {
 	public class ControllerNameRouteConvention : IRouteConvention
 	{

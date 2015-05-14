@@ -79,9 +79,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RestRouter\RestRouter.csproj">
+    <ProjectReference Include="..\Conifer\Conifer.csproj">
       <Project>{0ed014a7-c58a-48bb-9799-a4b251d9808a}</Project>
-      <Name>RestRouter</Name>
+      <Name>Conifer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
