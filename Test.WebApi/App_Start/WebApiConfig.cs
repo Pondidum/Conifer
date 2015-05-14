@@ -18,6 +18,7 @@ namespace Test.WebApi
 				r.DefaultConventionsAre(new IRouteConvention[]
 				{
 					new ControllerNameRouteConvention(),
+					new MethodNameRouteConvention(), 
 					new ParameterNameRouteConvention(),
 					new ActionEndsWithRawRouteConvention()
 				});
