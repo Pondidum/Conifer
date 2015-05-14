@@ -3,9 +3,9 @@ using Conifer;
 using Conifer.Conventions;
 using StructureMap;
 using StructureMap.Graph;
-using Test.WebApi.Controllers;
+using WebApiDemo.Controllers;
 
-namespace Test.WebApi
+namespace WebApiDemo
 {
 	public static class WebApiConfig
 	{

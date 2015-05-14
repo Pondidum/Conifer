@@ -1,7 +1,6 @@
 ﻿using System.Web.Http;
-using Conifer;
 
-namespace Test.WebApi.Controllers
+namespace WebApiDemo.Controllers
 {
 	public class PersonController : ApiController
 	{

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Http.Dependencies;
 using StructureMap;
 
-namespace Test.WebApi
+namespace WebApiDemo
 {
 	class StructureMapDependencyScope : IDependencyScope
 	{

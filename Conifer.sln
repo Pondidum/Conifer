@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conifer", "Conifer\Conifer.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.WebApi", "Test.WebApi\Test.WebApi.csproj", "{975C489B-0487-4C42-92CD-CB786AE73906}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiDemo", "WebApiDemo\WebApiDemo.csproj", "{CEE9375D-9952-4904-B66C-F2334DC78CA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{975C489B-0487-4C42-92CD-CB786AE73906}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{975C489B-0487-4C42-92CD-CB786AE73906}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{975C489B-0487-4C42-92CD-CB786AE73906}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEE9375D-9952-4904-B66C-F2334DC78CA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEE9375D-9952-4904-B66C-F2334DC78CA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEE9375D-9952-4904-B66C-F2334DC78CA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEE9375D-9952-4904-B66C-F2334DC78CA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

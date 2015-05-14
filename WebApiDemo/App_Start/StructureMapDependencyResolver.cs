@@ -1,7 +1,7 @@
 ﻿using System.Web.Http.Dependencies;
 using StructureMap;
 
-namespace Test.WebApi
+namespace WebApiDemo
 {
 	class StructureMapDependencyResolver : StructureMapDependencyScope, IDependencyResolver
 	{
