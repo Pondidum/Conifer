@@ -20,7 +20,8 @@ namespace RestRouter
 
 			var routes = _routes
 				.Where(r => r.ControllerType == info.Class)
-				.Where(r => r.ActionName == info.Method.Name);
+				.Where(r => r.ActionName == info.Method.Name)
+				.Where(cr => info.Parameters.Keys.All(p => cr.Template.Contains("{" + p + "}")));
 
 			var template = routes.First().Template;
 

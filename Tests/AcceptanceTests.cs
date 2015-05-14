@@ -23,8 +23,25 @@ namespace Tests
 				() => router.RouteFor<PersonController>(c => c.Get()).ShouldBe("Person/Get"),
 				() => router.RouteFor<PersonController>(c => c.GetByID(123)).ShouldBe("Person/GetByID/123")
 			);
-			
 		}
+
+		[Fact]
+		public void When_a_controller_has_overloaded_methods()
+		{
+			var config = new HttpConfiguration();
+			var router = Router.Create(config, r =>
+			{
+				r.Add<MultiMethodController>();
+			});
+
+			router.ShouldSatisfyAllConditions(
+				() => router.RouteFor<MultiMethodController>(c => c.Get()).ShouldBe("MultiMethod/Get"),
+				() => router.RouteFor<MultiMethodController>(c => c.Get(123)).ShouldBe("MultiMethod/Get/123")
+			);
+
+
+		}
+
 	}
 
 	namespace Controllers
@@ -47,6 +64,19 @@ namespace Tests
 			public string GetByID(int id)
 			{
 				return "Person.Get(" + id + ")";
+			}
+		}
+
+		public class MultiMethodController : ApiController
+		{
+			public string Get()
+			{
+				return "Multi.Get";
+			}
+
+			public string Get(int id)
+			{
+				return "Multi.Get(" + id + ")";
 			}
 		}
 	}

@@ -8,23 +8,22 @@ namespace RestRouter
 {
 	public class TypedDirectRouteProvider : DefaultDirectRouteProvider
 	{
-		private readonly Dictionary<Type, Dictionary<string, TypedRoute>> _routes;
+		private readonly Dictionary<Type, List<TypedRoute>> _routes;
 
 		public TypedDirectRouteProvider()
 		{
-			 _routes = new Dictionary<Type, Dictionary<string, TypedRoute>>();
+			_routes = new Dictionary<Type, List<TypedRoute>>();
 		}
 
 		public void AddRoute(TypedRoute route)
 		{
 			if (_routes.ContainsKey(route.ControllerType))
 			{
-				_routes[route.ControllerType].Add(route.ActionName, route);
+				_routes[route.ControllerType].Add(route);
 			}
 			else
 			{
-				var controllerLevelDictionary = new Dictionary<string, TypedRoute> { { route.ActionName, route } };
-				_routes.Add(route.ControllerType, controllerLevelDictionary);
+				_routes.Add(route.ControllerType, new List<TypedRoute> { route });
 			}
 		}
 
@@ -34,14 +33,20 @@ namespace RestRouter
 
 			if (_routes.ContainsKey(actionDescriptor.ControllerDescriptor.ControllerType))
 			{
-				var controllerLevelDictionary = _routes[actionDescriptor.ControllerDescriptor.ControllerType];
-				if (controllerLevelDictionary.ContainsKey(actionDescriptor.ActionName))
-				{
-					factories.Add(controllerLevelDictionary[actionDescriptor.ActionName]);
-				}
+				var controllerRoutes = _routes[actionDescriptor.ControllerDescriptor.ControllerType];
+				var parameters = actionDescriptor.GetParameters();
+
+				factories.AddRange(controllerRoutes
+					.Where(cr => cr.ActionName.Equals(actionDescriptor.ActionName, StringComparison.OrdinalIgnoreCase))
+					.Where(cr => parameters.All(p => cr.Template.Contains("{" + p.ParameterName + "}"))));
 			}
- 
+
 			return factories;
+		}
+
+		private static string GetName()
+		{
+			return string.Empty;
 		}
 	}
 }
