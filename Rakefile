@@ -53,12 +53,12 @@ nugets_pack :pack do |n|
   n.files = FileList["#{project_name}/*.csproj"]
 
   n.with_metadata do |m|
-    m.description = 'Strong Typed route building, generating and registering'
+    m.description = 'Strong Typed, convention based router for Webapi/Mvc'
     m.authors = 'Andy Dote'
     m.project_url = 'https://github.com/pondidum/Conifer'
     m.license_url = 'https://github.com/Pondidum/Conifer/blob/master/LICENSE.txt'
     m.version = project_version
-    m.tags = 'rest router webapi mvc routing'
+    m.tags = 'rest router webapi mvc routing convention'
   end
 
 end
