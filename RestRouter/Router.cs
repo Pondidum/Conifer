@@ -7,14 +7,15 @@ namespace RestRouter
 	{
 		public static RouteBuilder Create(HttpConfiguration httpConfiguration, Action<RouterConfigurationExpression> configure)
 		{
-			var routeProvider = new TypedDirectRouteProvider();
-			var router = new ConventionalRouter(routeProvider);
+			var router = new ConventionalRouter();
 			var expression = new RouterConfigurationExpression(router);
 			configure(expression);
 
-			httpConfiguration.MapHttpAttributeRoutes(routeProvider);
+			var routeBuilder = new RouteBuilder(router.Routes);
 
-			return new RouteBuilder(router.Routes);
+			httpConfiguration.MapHttpAttributeRoutes(new TypedDirectRouteProvider(routeBuilder));
+
+			return routeBuilder;
 		} 
 	}
 }

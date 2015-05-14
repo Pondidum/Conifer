@@ -8,12 +8,10 @@ namespace RestRouter
 {
 	public class ConventionalRouter : IConventionalRouter
 	{
-		private readonly TypedDirectRouteProvider _routeProvider;
 		private readonly List<TypedRoute> _routes;
 
-		public ConventionalRouter(TypedDirectRouteProvider routeProvider)
+		public ConventionalRouter()
 		{
-			_routeProvider = routeProvider;
 			_routes = new List<TypedRoute>();
 		}
 
@@ -28,7 +26,6 @@ namespace RestRouter
 				var route = template.Build(conventions);
 
 				_routes.Add(route);
-				_routeProvider.AddRoute(route);
 			}
 		}
 

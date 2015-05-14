@@ -17,12 +17,7 @@ namespace RestRouter
 		public string RouteFor<T>(Expression<Action<T>> expression)
 		{
 			var info = MethodBuilder.GetMethodInfo(expression);
-
-			var routes = _routes
-				.Where(r => r.ControllerType == info.Class)
-				.Where(r => r.ActionName == info.Method.Name)
-				.Where(cr => info.Parameters.Keys.All(p => cr.Template.Contains("{" + p + "}")));
-
+			var routes = RoutesFor(info.Class, info.Method.Name, info.Parameters.Keys);
 			var template = routes.First().Template;
 
 			foreach (var pair in info.Parameters)
@@ -31,6 +26,14 @@ namespace RestRouter
 			}
 
 			return template;
+		}
+
+		public IEnumerable<TypedRoute> RoutesFor(Type controllerType, string actionName, IEnumerable<string> parameterNames)
+		{
+			return _routes
+				.Where(r => r.ControllerType == controllerType)
+				.Where(r => r.ActionName == actionName)
+				.Where(r => parameterNames.All(p => r.Template.Contains("{" + p + "}")));
 		}
 	}
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http.Controllers;
@@ -8,45 +7,22 @@ namespace RestRouter
 {
 	public class TypedDirectRouteProvider : DefaultDirectRouteProvider
 	{
-		private readonly Dictionary<Type, List<TypedRoute>> _routes;
+		private readonly RouteBuilder _routes;
 
-		public TypedDirectRouteProvider()
+		public TypedDirectRouteProvider(RouteBuilder routes)
 		{
-			_routes = new Dictionary<Type, List<TypedRoute>>();
-		}
-
-		public void AddRoute(TypedRoute route)
-		{
-			if (_routes.ContainsKey(route.ControllerType))
-			{
-				_routes[route.ControllerType].Add(route);
-			}
-			else
-			{
-				_routes.Add(route.ControllerType, new List<TypedRoute> { route });
-			}
+			_routes = routes;
 		}
 
 		protected override IReadOnlyList<IDirectRouteFactory> GetActionRouteFactories(HttpActionDescriptor actionDescriptor)
 		{
-			var factories = base.GetActionRouteFactories(actionDescriptor).ToList();
+			var controllerType = actionDescriptor.ControllerDescriptor.ControllerType;
+			var actionName = actionDescriptor.ActionName;
+			var parameters = actionDescriptor.GetParameters().Select(p => p.ParameterName);
 
-			if (_routes.ContainsKey(actionDescriptor.ControllerDescriptor.ControllerType))
-			{
-				var controllerRoutes = _routes[actionDescriptor.ControllerDescriptor.ControllerType];
-				var parameters = actionDescriptor.GetParameters();
+			var routes = _routes.RoutesFor(controllerType, actionName, parameters);
 
-				factories.AddRange(controllerRoutes
-					.Where(cr => cr.ActionName.Equals(actionDescriptor.ActionName, StringComparison.OrdinalIgnoreCase))
-					.Where(cr => parameters.All(p => cr.Template.Contains("{" + p.ParameterName + "}"))));
-			}
-
-			return factories;
-		}
-
-		private static string GetName()
-		{
-			return string.Empty;
+			return routes.ToList();
 		}
 	}
 }
