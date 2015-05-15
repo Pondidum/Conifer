@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http;
 using Conifer;
 using Conifer.Conventions;
@@ -12,6 +14,7 @@ namespace Tests
 		[Fact]
 		public void When_testing_something()
 		{
+			Console.WriteLine(HttpMethod.Get.ToString());
 		}
 	}
 }
