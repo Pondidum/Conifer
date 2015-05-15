@@ -14,7 +14,7 @@ namespace Conifer
 			_routes = routes.ToList();
 		}
 
-		public string RouteFor<T>(Expression<Action<T>> expression)
+		public string LinkTo<T>(Expression<Action<T>> expression)
 		{
 			var info = MethodBuilder.GetMethodInfo(expression);
 			var routes = RoutesFor(info.Class, info.Method.Name, info.Parameters.Keys);

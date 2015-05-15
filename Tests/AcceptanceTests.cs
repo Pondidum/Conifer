@@ -19,9 +19,9 @@ namespace Tests
 			});
 
 			router.ShouldSatisfyAllConditions(
-				() => router.RouteFor<HomeController>(c => c.Get()).ShouldBe(""),
-				() => router.RouteFor<PersonController>(c => c.Get()).ShouldBe("Person"),
-				() => router.RouteFor<PersonController>(c => c.GetByID(123)).ShouldBe("Person/ByID/123")
+				() => router.LinkTo<HomeController>(c => c.Get()).ShouldBe(""),
+				() => router.LinkTo<PersonController>(c => c.Get()).ShouldBe("Person"),
+				() => router.LinkTo<PersonController>(c => c.GetByID(123)).ShouldBe("Person/ByID/123")
 			);
 		}
 
@@ -35,8 +35,8 @@ namespace Tests
 			});
 
 			router.ShouldSatisfyAllConditions(
-				() => router.RouteFor<MultiMethodController>(c => c.Get()).ShouldBe("MultiMethod"),
-				() => router.RouteFor<MultiMethodController>(c => c.Get(123)).ShouldBe("MultiMethod/123")
+				() => router.LinkTo<MultiMethodController>(c => c.Get()).ShouldBe("MultiMethod"),
+				() => router.LinkTo<MultiMethodController>(c => c.Get(123)).ShouldBe("MultiMethod/123")
 			);
 
 
