@@ -42,8 +42,17 @@ namespace Tests.Conventions
 			RunTest(new MethodNameRouteConvention().DontStripVerbPrefixes(), method).Single().ShouldBe("PatchValue");
 		}
 
+		[Fact]
+		public void When_the_name_is_only_a_known_prefix()
+		{
+			var method = GetType().GetMethod("Get", BindingFlags.NonPublic | BindingFlags.Instance);
+
+			RunTest(new MethodNameRouteConvention(), method).ShouldBeEmpty();
+		}
+
 		private void GetValue() { }
 		private void PatchValue() { }
+		private void Get() { }
 
 		private class Controller { }
 	}

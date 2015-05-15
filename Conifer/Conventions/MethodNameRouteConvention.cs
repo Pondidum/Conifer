@@ -38,6 +38,11 @@ namespace Conifer.Conventions
 					name = name.Substring(prefix.Length);
 				}
 			}
+
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				return;
+			}
 			
 			template.Parts.Add(name);
 		}
