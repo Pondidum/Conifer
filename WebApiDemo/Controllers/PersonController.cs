@@ -4,16 +4,24 @@ namespace WebApiDemo.Controllers
 {
 	public class PersonController : ApiController
 	{
-		[HttpGet]
-		public string View()
+		public string GetView()
 		{
 			return "Person.Index";
 		}
 
-		[HttpGet]
-		public string View(int id)
+		public string GetView(int id)
 		{
 			return "Person.View(" + id + ")";
+		}
+
+		public string PostTest()
+		{
+			return "posted to Person.Test()";
+		}
+
+		public string GetTest()
+		{
+			return "get to Person.Test()";
 		}
 	}
 }

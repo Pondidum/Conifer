@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
 
@@ -20,9 +21,17 @@ namespace Conifer
 			var actionName = actionDescriptor.ActionName;
 			var parameters = actionDescriptor.GetParameters().Select(p => p.ParameterName);
 
-			var routes = _routes.RoutesFor(controllerType, actionName, parameters);
+			var routes = _routes.RoutesFor(controllerType, actionName, parameters).ToList();;
 
-			return routes.ToList();
+			foreach (var route in routes)
+			{
+				route.SupportedMethods.ToList().ForEach(m =>
+				{
+					actionDescriptor.SupportedHttpMethods.Add(m);
+				});
+			}
+
+			return routes;
 		}
 	}
 }

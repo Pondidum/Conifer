@@ -14,7 +14,7 @@ namespace WebApiDemo.Controllers
 
 		public string Get()
 		{
-			return "HomeController.Get: " +  _router.LinkTo<PersonController>(p => p.View(123));
+			return "HomeController.Get: " +  _router.LinkTo<PersonController>(p => p.GetView(123));
 		}
 	}
 }
