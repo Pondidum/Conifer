@@ -25,7 +25,7 @@ asmver :version do |v|
 
   v.file_path = "#{project_name}/Properties/AssemblyVersion.cs"
   v.attributes assembly_version: project_version,
-         assembly_file_version: project_version
+               assembly_file_version: project_version
 end
 
 desc 'Compile all projects'
@@ -45,8 +45,9 @@ end
 desc 'Build all nuget packages'
 nugets_pack :pack do |n|
 
-  Dir.mkdir(package_output) unless Dir.exists?(package_output)
+  FileUtils.mkdir_p package_output unless Dir.exists? package_output
 
+  n.configuration = build_mode
   n.exe = tool_nuget
   n.out = package_output
 
