@@ -8,21 +8,21 @@ namespace Conifer.Conventions
 	public class MethodNameRouteConvention : IRouteConvention
 	{
 		private bool _removePrefixes;
-		private readonly IEnumerable<string> _allPrefixes;
+		private readonly HttpMethod[] _allPrefixes;
 
 		public MethodNameRouteConvention()
 		{
 			_removePrefixes = true;
 			_allPrefixes = new[]
 			{
-				HttpMethod.Delete, 
-				HttpMethod.Get, 
-				HttpMethod.Head, 
-				HttpMethod.Options, 
-				HttpMethod.Post, 
-				HttpMethod.Put, 
+				HttpMethod.Delete,
+				HttpMethod.Get,
+				HttpMethod.Head,
+				HttpMethod.Options,
+				HttpMethod.Post,
+				HttpMethod.Put,
 				HttpMethod.Trace
-			}.Select(p => p.Method);
+			};
 		}
 
 		public void Execute(TypedRouteBuilder template)
@@ -31,11 +31,16 @@ namespace Conifer.Conventions
 
 			if (_removePrefixes)
 			{
-				var prefix = _allPrefixes.FirstOrDefault(p => name.StartsWith(p, StringComparison.OrdinalIgnoreCase));
+				var prefix = _allPrefixes.FirstOrDefault(p => name.StartsWith(p.Method, StringComparison.OrdinalIgnoreCase));
 
-				if (string.IsNullOrWhiteSpace(prefix) == false)
+				if (prefix != null)
 				{
-					name = name.Substring(prefix.Length);
+					name = name.Substring(prefix.Method.Length);
+
+					if (template.SupportedMethods.Contains(prefix) == false)
+					{
+						template.SupportedMethods.Add(prefix);
+					}
 				}
 			}
 

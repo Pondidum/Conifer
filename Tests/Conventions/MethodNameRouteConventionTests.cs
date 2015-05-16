@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using Conifer;
 using Conifer.Conventions;
@@ -10,12 +11,12 @@ namespace Tests.Conventions
 {
 	public class MethodNameRouteConventionTests
 	{
-		private List<string> RunTest(IRouteConvention convention, MethodInfo method)
+		private TypedRouteBuilder RunTest(IRouteConvention convention, MethodInfo method)
 		{
 			var template = new TypedRouteBuilder(typeof(Controller), method);
 			convention.Execute(template);
 
-			return template.Parts;
+			return template;
 		}
 
 		[Fact]
@@ -23,7 +24,9 @@ namespace Tests.Conventions
 		{
 			var method = GetType().GetMethod("GetValue", BindingFlags.NonPublic | BindingFlags.Instance);
 
-			RunTest(new MethodNameRouteConvention(), method).Single().ShouldBe("Value");
+			var builder = RunTest(new MethodNameRouteConvention(), method);
+			builder.Parts.Single().ShouldBe("Value");
+			builder.SupportedMethods.ShouldBe(new HashSet<HttpMethod>(new[] { HttpMethod.Get }));
 		}
 
 		[Fact]
@@ -31,7 +34,9 @@ namespace Tests.Conventions
 		{
 			var method = GetType().GetMethod("PatchValue", BindingFlags.NonPublic | BindingFlags.Instance);
 
-			RunTest(new MethodNameRouteConvention(), method).Single().ShouldBe("PatchValue");
+			var builder = RunTest(new MethodNameRouteConvention(), method);
+			builder.Parts.Single().ShouldBe("PatchValue");
+			builder.SupportedMethods.ShouldBeEmpty();
 		}
 
 		[Fact]
@@ -39,7 +44,9 @@ namespace Tests.Conventions
 		{
 			var method = GetType().GetMethod("PatchValue", BindingFlags.NonPublic | BindingFlags.Instance);
 
-			RunTest(new MethodNameRouteConvention().DontStripVerbPrefixes(), method).Single().ShouldBe("PatchValue");
+			var builder = RunTest(new MethodNameRouteConvention().DontStripVerbPrefixes(), method);
+			builder.Parts.Single().ShouldBe("PatchValue");
+			builder.SupportedMethods.ShouldBeEmpty();
 		}
 
 		[Fact]
@@ -47,7 +54,9 @@ namespace Tests.Conventions
 		{
 			var method = GetType().GetMethod("Get", BindingFlags.NonPublic | BindingFlags.Instance);
 
-			RunTest(new MethodNameRouteConvention(), method).ShouldBeEmpty();
+			var builder = RunTest(new MethodNameRouteConvention(), method);
+			builder.Parts.ShouldBeEmpty();
+			builder.SupportedMethods.ShouldBe(new HashSet<HttpMethod>(new[] { HttpMethod.Get }));
 		}
 
 		private void GetValue() { }
