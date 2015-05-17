@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Tests
 {
-	public class AcceptanceTests
+	public class ConventionalRouterTests
 	{
 		[Fact]
 		public void When_using_the_default_conventions()
