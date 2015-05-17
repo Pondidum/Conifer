@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Web.Http;
-using Conifer;
-using Conifer.Conventions;
-using Shouldly;
 using Xunit;
 
-namespace Tests
+namespace Conifer.Tests
 {
 	public class Scratchpad
 	{

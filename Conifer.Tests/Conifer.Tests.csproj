@@ -8,8 +8,8 @@
     <ProjectGuid>{99E33CD3-1C8D-41CC-942E-96415E06C330}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tests</RootNamespace>
-    <AssemblyName>Tests</AssemblyName>
+    <RootNamespace>Conifer.Tests</RootNamespace>
+    <AssemblyName>Conifer.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>b9e3307f</NuGetPackageImportStamp>

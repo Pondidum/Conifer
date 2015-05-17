@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using Conifer;
 using Shouldly;
 using Xunit;
 
-namespace Tests
+namespace Conifer.Tests
 {
 	public class TypedRouteTests
 	{

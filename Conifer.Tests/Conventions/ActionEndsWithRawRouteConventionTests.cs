@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Conifer;
 using Conifer.Conventions;
 using Shouldly;
 using Xunit;
 
-namespace Tests.Conventions
+namespace Conifer.Tests.Conventions
 {
 	public class ActionEndsWithRawRouteConventionTests
 	{

@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using Conifer;
 using Conifer.Conventions;
 using Shouldly;
 using Xunit;
 
-namespace Tests.Conventions
+namespace Conifer.Tests.Conventions
 {
 	public class NamespaceRouteConventionTests
 	{
@@ -15,7 +13,7 @@ namespace Tests.Conventions
 		{
 			var result = Test<Controllers.Controller>(new NamespaceRouteConvention());
 
-			result.ShouldBe(new[] { "Conventions" }.ToList());
+			result.ShouldBe(new[] {"Tests", "Conventions" }.ToList());
 		}
 
 		[Fact]
@@ -23,7 +21,7 @@ namespace Tests.Conventions
 		{
 			var result = Test<Controllers.Controller>(new NamespaceRouteConvention().DontIgnoreRootNamespace());
 
-			result.ShouldBe(new[] { "Tests", "Conventions" }.ToList());
+			result.ShouldBe(new[] { "Conifer", "Tests", "Conventions" }.ToList());
 		}
 
 		[Fact]
@@ -31,13 +29,13 @@ namespace Tests.Conventions
 		{
 			var result = Test<Controllers.Controller>(new NamespaceRouteConvention().DontIgnoreControllersNamespace());
 
-			result.ShouldBe(new[] { "Conventions", "Controllers" });
+			result.ShouldBe(new[] { "Tests", "Conventions", "Controllers" });
 		}
 
 		[Fact]
 		public void When_ignoring_a_namespace_prefix()
 		{
-			var result = Test<Candidates.CandidateController>(new NamespaceRouteConvention().IgnoreThePrefix("Tests.Conventions"));
+			var result = Test<Candidates.CandidateController>(new NamespaceRouteConvention().IgnoreThePrefix("Conifer.Tests.Conventions"));
 
 			result.ShouldBe(new[] { "Candidates" });
 		}

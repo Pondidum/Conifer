@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
-using NSubstitute;
-using Conifer;
 using Conifer.Conventions;
+using NSubstitute;
 using Shouldly;
 using Xunit;
 
-namespace Tests
+namespace Conifer.Tests
 {
 	public class RouterConfigurationExpressionTests
 	{

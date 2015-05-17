@@ -38,7 +38,7 @@ end
 desc 'Run all unit test assemblies'
 test_runner :test do |xunit|
   xunit.exe = tool_xunit
-  xunit.files = FileList['**/bin/*/*tests.dll']
+  xunit.files = FileList['**/bin/*/*.tests.dll']
   xunit.add_parameter '/silent'
 end
 

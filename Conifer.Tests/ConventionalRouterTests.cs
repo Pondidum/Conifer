@@ -1,10 +1,9 @@
 ﻿using System.Web.Http;
-using Conifer;
+using Conifer.Tests.Controllers;
 using Shouldly;
-using Tests.Controllers;
 using Xunit;
 
-namespace Tests
+namespace Conifer.Tests
 {
 	public class ConventionalRouterTests
 	{
@@ -18,11 +17,9 @@ namespace Tests
 				r.Add<PersonController>();
 			});
 
-			router.ShouldSatisfyAllConditions(
-				() => router.LinkTo<HomeController>(c => c.Get()).ShouldBe(""),
-				() => router.LinkTo<PersonController>(c => c.Get()).ShouldBe("Person"),
-				() => router.LinkTo<PersonController>(c => c.GetByID(123)).ShouldBe("Person/ByID/123")
-			);
+			router.LinkTo<HomeController>(c => c.Get()).ShouldBe("");
+			router.LinkTo<PersonController>(c => c.Get()).ShouldBe("Tests/Person");
+			router.LinkTo<PersonController>(c => c.GetByID(123)).ShouldBe("Tests/Person/ByID/123");
 		}
 
 		[Fact]
@@ -34,12 +31,8 @@ namespace Tests
 				r.Add<MultiMethodController>();
 			});
 
-			router.ShouldSatisfyAllConditions(
-				() => router.LinkTo<MultiMethodController>(c => c.Get()).ShouldBe("MultiMethod"),
-				() => router.LinkTo<MultiMethodController>(c => c.Get(123)).ShouldBe("MultiMethod/123")
-			);
-
-
+			router.LinkTo<MultiMethodController>(c => c.Get()).ShouldBe("Tests/MultiMethod");
+			router.LinkTo<MultiMethodController>(c => c.Get(123)).ShouldBe("Tests/MultiMethod/123");
 		}
 
 	}

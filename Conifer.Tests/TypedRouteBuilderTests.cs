@@ -2,11 +2,10 @@
 using System.Linq;
 using System.Reflection;
 using System.Web.Http.Controllers;
-using Conifer;
 using Shouldly;
 using Xunit;
 
-namespace Tests
+namespace Conifer.Tests
 {
 	public class TypedRouteBuilderTests
 	{
