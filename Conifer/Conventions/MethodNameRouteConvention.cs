@@ -2,27 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 
 namespace Conifer.Conventions
 {
 	public class MethodNameRouteConvention : IRouteConvention
 	{
 		private bool _removePrefixes;
-		private readonly HttpMethod[] _allPrefixes;
+		private List<HttpMethod> _customPrefixes;
+
+		private readonly Lazy<IEnumerable<HttpMethod>> _prefixes;
 
 		public MethodNameRouteConvention()
 		{
 			_removePrefixes = true;
-			_allPrefixes = new[]
+			_prefixes = new Lazy<IEnumerable<HttpMethod>>(() =>
 			{
-				HttpMethod.Delete,
-				HttpMethod.Get,
-				HttpMethod.Head,
-				HttpMethod.Options,
-				HttpMethod.Post,
-				HttpMethod.Put,
-				HttpMethod.Trace
-			};
+				if (_customPrefixes != null && _customPrefixes.Any())
+				{
+					return _customPrefixes;
+				}
+
+				return typeof (HttpMethod)
+					.GetProperties(BindingFlags.Static | BindingFlags.Public)
+					.Select(p => p.GetGetMethod())
+					.Select(m => m.Invoke(null, new object[] {}))
+					.Cast<HttpMethod>();
+
+			});
 		}
 
 		public void Execute(TypedRouteBuilder template)
@@ -31,7 +38,9 @@ namespace Conifer.Conventions
 
 			if (_removePrefixes)
 			{
-				var prefix = _allPrefixes.FirstOrDefault(p => name.StartsWith(p.Method, StringComparison.OrdinalIgnoreCase));
+				var prefix = _prefixes
+					.Value
+					.FirstOrDefault(p => name.StartsWith(p.Method, StringComparison.OrdinalIgnoreCase));
 
 				if (prefix != null)
 				{
@@ -55,6 +64,12 @@ namespace Conifer.Conventions
 		public MethodNameRouteConvention DontStripVerbPrefixes()
 		{
 			_removePrefixes = false;
+			return this;
+		}
+
+		public MethodNameRouteConvention UseCustomPrefixes(IEnumerable<HttpMethod> prefixes)
+		{
+			_customPrefixes = prefixes.ToList();
 			return this;
 		}
 	}
