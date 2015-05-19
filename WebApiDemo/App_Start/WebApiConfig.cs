@@ -20,7 +20,7 @@ namespace WebApiDemo
 					new ControllerNameRouteConvention(),
 					new MethodNameRouteConvention(),
 					new ParameterNameRouteConvention(),
-					new ActionEndsWithRawRouteConvention()
+					new RawRouteConvention()
 				});
 
 				r.Add<HomeController>(null);	//no conventions applied to this route

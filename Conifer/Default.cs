@@ -15,7 +15,7 @@ namespace Conifer
 				new ControllerNameRouteConvention(),
 				new MethodNameRouteConvention(),
 				new ParameterNameRouteConvention(),
-				new ActionEndsWithRawRouteConvention()
+				new RawRouteConvention()
 			};
 		}
 	}

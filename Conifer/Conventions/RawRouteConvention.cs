@@ -1,6 +1,6 @@
 namespace Conifer.Conventions
 {
-	public class ActionEndsWithRawRouteConvention : IRouteConvention
+	public class RawRouteConvention : IRouteConvention
 	{
 		public void Execute(TypedRouteBuilder template)
 		{

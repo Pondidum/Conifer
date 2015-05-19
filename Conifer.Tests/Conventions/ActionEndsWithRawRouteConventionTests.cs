@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Conifer.Tests.Conventions
 {
-	public class ActionEndsWithRawRouteConventionTests
+	public class RawRouteConventionTests
 	{
 		private List<string> RunTest(string methodName)
 		{
@@ -15,7 +15,7 @@ namespace Conifer.Tests.Conventions
 
 			var template = new TypedRouteBuilder(typeof(Controller), method);
 
-			var convention = new ActionEndsWithRawRouteConvention();
+			var convention = new RawRouteConvention();
 			convention.Execute(template);
 
 			return template.Parts;
