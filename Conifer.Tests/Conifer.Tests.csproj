@@ -90,7 +90,7 @@
   <ItemGroup>
     <Compile Include="AcceptanceTests.cs" />
     <Compile Include="ConventionalRouterTests.cs" />
-    <Compile Include="Conventions\ActionEndsWithRawRouteConventionTests.cs" />
+    <Compile Include="Conventions\RawRouteConventionTests.cs" />
     <Compile Include="Conventions\ControllerNameRouteConventionTests.cs" />
     <Compile Include="Conventions\MethodNameRouteConventionTests.cs" />
     <Compile Include="Conventions\NamespaceRouteConventionTests.cs" />
