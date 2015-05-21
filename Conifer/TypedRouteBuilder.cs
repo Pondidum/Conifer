@@ -10,14 +10,14 @@ namespace Conifer
 	{
 		public Type Controller { get; private set; }
 		public MethodInfo Method { get; private set; }
-		public List<string> Parts { get; private set; }
+		public List<RoutePart> Parts { get; private set; }
 		public HashSet<HttpMethod> SupportedMethods { get; private set; }
 
 		public TypedRouteBuilder(Type controller, MethodInfo method)
 		{
 			Controller = controller;
 			Method = method;
-			Parts = new List<string>();
+			Parts = new List<RoutePart>();
 			SupportedMethods = new HashSet<HttpMethod>();
 		}
 
@@ -25,7 +25,7 @@ namespace Conifer
 		{
 			conventions.ForEach(convention => convention.Execute(this));
 
-			var template = string.Join("/", Parts.Select(p => p.Trim('/')));
+			var template = string.Join("/", Parts.Select(p => p.Value.Trim('/')));
 
 			return new TypedRoute(template, SupportedMethods, Controller, Method.Name);
 		}

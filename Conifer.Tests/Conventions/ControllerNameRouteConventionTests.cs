@@ -17,7 +17,10 @@ namespace Conifer.Tests.Conventions
 			var convention = new ControllerNameRouteConvention();
 			convention.Execute(template);
 
-			return template.Parts;
+			return template
+				.Parts
+				.Select(p => p.Value)
+				.ToList();
 		}
 
 		[Fact]

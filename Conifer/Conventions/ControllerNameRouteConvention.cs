@@ -18,7 +18,7 @@ namespace Conifer.Conventions
 				name = name.Substring(0, name.LastIndexOf("controller", StringComparison.OrdinalIgnoreCase));
 			}
 
-			template.Parts.Add(name);
+			template.Parts.Add(new RoutePart(PartType.Controller) { Value = name });
 		}
 	}
 }

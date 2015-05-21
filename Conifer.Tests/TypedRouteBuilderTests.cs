@@ -19,8 +19,8 @@ namespace Conifer.Tests
 			_method = _controller.GetMethods().First();
 
 			_builder = new TypedRouteBuilder(_controller, _method);
-			_builder.Parts.Add("First");
-			_builder.Parts.Add("Second");
+			_builder.Parts.Add(new RoutePart(PartType.Controller) { Value = "First" });
+			_builder.Parts.Add(new RoutePart(PartType.Action) { Value = "Second" });
 		}
 
 		[Fact]
@@ -38,7 +38,7 @@ namespace Conifer.Tests
 		[Fact]
 		public void When_conventions_are_specified()
 		{
-			var route = _builder.Build(new IRouteConvention[] {new TestConvention()}.ToList());
+			var route = _builder.Build(new IRouteConvention[] { new TestConvention() }.ToList());
 
 			route.Template.ShouldBeEmpty();
 		}

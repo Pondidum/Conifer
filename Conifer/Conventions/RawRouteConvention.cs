@@ -6,7 +6,7 @@ namespace Conifer.Conventions
 		{
 			if (template.Method.Name.EndsWith("Raw"))
 			{
-				template.Parts.Add("raw");
+				template.Parts.Add(new RoutePart(PartType.Constant) { Value = "raw"});
 			}
 		}
 	}

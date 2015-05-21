@@ -6,7 +6,13 @@ namespace Conifer.Conventions
 	{
 		public void Execute(TypedRouteBuilder template)
 		{
-			template.Parts.AddRange(template.Method.GetParameters().Select(p => "{" + p.Name + "}"));
+			var parts = template
+				.Method
+				.GetParameters()
+				.Select(p => "{" + p.Name + "}")
+				.Select(p => new RoutePart(PartType.Parameter) { Value = p });
+
+			template.Parts.AddRange(parts);
 		}
 	}
 }

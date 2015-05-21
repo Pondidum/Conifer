@@ -49,7 +49,10 @@ namespace Conifer.Tests.Conventions
 
 			convention.Execute(builder);
 
-			return builder.Parts;
+			return builder
+				.Parts
+				.Select(p => p.Value)
+				.ToList();
 		}
 	}
 

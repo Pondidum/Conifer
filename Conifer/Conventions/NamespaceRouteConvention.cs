@@ -66,7 +66,10 @@ namespace Conifer.Conventions
 					.Where(s => s.Equals("controllers", StringComparison.OrdinalIgnoreCase) == false);
 			}
 
-			template.Parts.AddRange(segments);
+			var parts = segments
+				.Select(p => new RoutePart(PartType.Namespace) {Value = p});
+
+			template.Parts.AddRange(parts);
 		}
 	}
 }

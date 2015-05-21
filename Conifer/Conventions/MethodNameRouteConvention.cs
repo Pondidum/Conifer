@@ -23,10 +23,10 @@ namespace Conifer.Conventions
 					return _customPrefixes;
 				}
 
-				return typeof (HttpMethod)
+				return typeof(HttpMethod)
 					.GetProperties(BindingFlags.Static | BindingFlags.Public)
 					.Select(p => p.GetGetMethod())
-					.Select(m => m.Invoke(null, new object[] {}))
+					.Select(m => m.Invoke(null, new object[] { }))
 					.Cast<HttpMethod>();
 
 			});
@@ -57,8 +57,8 @@ namespace Conifer.Conventions
 			{
 				return;
 			}
-			
-			template.Parts.Add(name);
+
+			template.Parts.Add(new RoutePart(PartType.Action) { Value = name });
 		}
 
 		public MethodNameRouteConvention DontStripVerbPrefixes()

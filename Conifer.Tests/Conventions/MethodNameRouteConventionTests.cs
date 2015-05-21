@@ -24,7 +24,7 @@ namespace Conifer.Tests.Conventions
 			var method = GetType().GetMethod("GetValue", BindingFlags.NonPublic | BindingFlags.Instance);
 			var builder = RunTest(new MethodNameRouteConvention(), method);
 
-			builder.Parts.Single().ShouldBe("Value");
+			builder.Parts.Single().Value.ShouldBe("Value");
 			builder.SupportedMethods.ShouldBe(new HashSet<HttpMethod>(new[] { HttpMethod.Get }));
 		}
 
@@ -34,7 +34,7 @@ namespace Conifer.Tests.Conventions
 			var method = GetType().GetMethod("PatchValue", BindingFlags.NonPublic | BindingFlags.Instance);
 			var builder = RunTest(new MethodNameRouteConvention(), method);
 
-			builder.Parts.Single().ShouldBe("PatchValue");
+			builder.Parts.Single().Value.ShouldBe("PatchValue");
 			builder.SupportedMethods.ShouldBeEmpty();
 		}
 
@@ -44,7 +44,7 @@ namespace Conifer.Tests.Conventions
 			var method = GetType().GetMethod("PatchValue", BindingFlags.NonPublic | BindingFlags.Instance);
 			var builder = RunTest(new MethodNameRouteConvention().DontStripVerbPrefixes(), method);
 
-			builder.Parts.Single().ShouldBe("PatchValue");
+			builder.Parts.Single().Value.ShouldBe("PatchValue");
 			builder.SupportedMethods.ShouldBeEmpty();
 		}
 
@@ -64,7 +64,7 @@ namespace Conifer.Tests.Conventions
 			var method = GetType().GetMethod("PatchValue", BindingFlags.NonPublic | BindingFlags.Instance);
 			var builder = RunTest(new MethodNameRouteConvention().UseCustomPrefixes(new[] { new HttpMethod("Patch"), }), method);
 
-			builder.Parts.Single().ShouldBe("Value");
+			builder.Parts.Single().Value.ShouldBe("Value");
 			builder.SupportedMethods.ShouldBe(new HashSet<HttpMethod>(new[] { new HttpMethod("PATCH"), }));
 		}
 
