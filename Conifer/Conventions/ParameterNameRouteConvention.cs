@@ -10,7 +10,7 @@ namespace Conifer.Conventions
 				.Method
 				.GetParameters()
 				.Select(p => "{" + p.Name + "}")
-				.Select(p => new RoutePart(PartType.Parameter) { Value = p });
+				.Select(p => new ParameterRoutePart { Value = p });
 
 			template.Parts.AddRange(parts);
 		}

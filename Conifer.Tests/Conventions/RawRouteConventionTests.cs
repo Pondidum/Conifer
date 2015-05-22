@@ -45,7 +45,7 @@ namespace Conifer.Tests.Conventions
 		[Fact]
 		public void When_there_is_an_action_ending_in_raw()
 		{
-			RunTest("GetDocumentRaw", new[] { new RoutePart(PartType.Action) { Value = "GetDocumentRaw" }  })
+			RunTest("GetDocumentRaw", new[] { new ActionRoutePart { Value = "GetDocumentRaw" }  })
 				.First().ShouldBe("GetDocument");
 		}
 

@@ -58,7 +58,7 @@ namespace Conifer.Conventions
 				return;
 			}
 
-			template.Parts.Add(new RoutePart(PartType.Action) { Value = name });
+			template.Parts.Add(new ActionRoutePart { Value = name });
 		}
 
 		public MethodNameRouteConvention DontStripVerbPrefixes()

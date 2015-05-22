@@ -67,7 +67,7 @@ namespace Conifer.Conventions
 			}
 
 			var parts = segments
-				.Select(p => new RoutePart(PartType.Namespace) {Value = p});
+				.Select(p => new NamespaceRoutePart {Value = p});
 
 			template.Parts.AddRange(parts);
 		}

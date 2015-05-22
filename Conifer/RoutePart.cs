@@ -1,13 +1,14 @@
 namespace Conifer
 {
-	public class RoutePart
+	public abstract class RoutePart
 	{
 		public string Value { get; set; }
-		public PartType Type { get; private set; }
-
-		public RoutePart(PartType type)
-		{
-			Type = type;
-		}
 	}
+
+	public class NamespaceRoutePart : RoutePart { }
+	public class ControllerRoutePart : RoutePart { }
+	public class ActionRoutePart : RoutePart { }
+	public class ParameterRoutePart : RoutePart { }
+	public class ConstantRoutePart : RoutePart { }
+
 }

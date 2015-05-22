@@ -19,8 +19,8 @@ namespace Conifer.Tests
 			_method = _controller.GetMethods().First();
 
 			_builder = new TypedRouteBuilder(_controller, _method);
-			_builder.Parts.Add(new RoutePart(PartType.Controller) { Value = "First" });
-			_builder.Parts.Add(new RoutePart(PartType.Action) { Value = "Second" });
+			_builder.Parts.Add(new ControllerRoutePart { Value = "First" });
+			_builder.Parts.Add(new ActionRoutePart { Value = "Second" });
 		}
 
 		[Fact]

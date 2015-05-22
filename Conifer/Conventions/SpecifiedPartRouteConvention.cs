@@ -16,7 +16,7 @@ namespace Conifer.Conventions
 				return;
 			}
 
-			template.Parts.Add(new RoutePart(PartType.Constant) { Value = _part.Trim('/') });
+			template.Parts.Add(new ConstantRoutePart { Value = _part.Trim('/') });
 		}
 	}
 }

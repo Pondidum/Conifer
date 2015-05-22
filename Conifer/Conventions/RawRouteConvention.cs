@@ -9,12 +9,13 @@ namespace Conifer.Conventions
 		{
 			if (template.Method.Name.EndsWith("Raw"))
 			{
-				template.Parts.Add(new RoutePart(PartType.Constant) { Value = "raw"});
+				template.Parts.Add(new ConstantRoutePart { Value = "raw"});
 			}
 
 			var action = template
 				.Parts
-				.FirstOrDefault(p => p.Type == PartType.Action);
+				.OfType<ActionRoutePart>()
+				.FirstOrDefault();
 
 			if (action == null)
 			{
