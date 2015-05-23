@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Http.Controllers;
 
@@ -27,6 +28,21 @@ namespace Conifer
 
 				_routes.Add(route);
 			}
+		}
+
+		public void AddRoute<TController>(Expression<Action<TController>> expression, List<IRouteConvention> conventions)
+			where TController : IHttpController
+		{
+			var method = MethodBuilder.GetMethodInfo(expression).Method;
+
+			if (IsValidAction(method) == false)
+			{
+				throw new ArgumentException(expression + " is not a valid controller action", "expression");
+			}
+
+			var template = new TypedRouteBuilder(typeof (TController), method);
+
+			_routes.Add(template.Build(conventions));
 		}
 
 		private static List<TypedRouteBuilder> FindMethods<TController>() where TController : IHttpController
