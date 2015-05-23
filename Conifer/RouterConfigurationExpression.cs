@@ -47,12 +47,19 @@ namespace Conifer
 			_router.AddRoutes<TController>(conventions.ToList());
 		}
 
+		/// <summary>
+		/// Creates a route for the specified method in the controller
+		/// </summary>
 		public void Add<TController>(Expression<Action<TController>> expression)
 			where TController : IHttpController
 		{
 			Add(expression, _defaultConventions);
 		}
 
+		/// <summary>
+		/// Creates a route for the specified method in the controller
+		/// </summary>
+		/// <param name="conventions">Override the default conventions with a custom set</param>
 		public void Add<TController>(Expression<Action<TController>> expression, IEnumerable<IRouteConvention> conventions)
 			where TController : IHttpController
 		{
