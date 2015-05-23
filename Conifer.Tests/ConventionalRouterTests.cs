@@ -41,18 +41,23 @@ namespace Conifer.Tests
 		[Fact]
 		public void When_adding_a_single_method()
 		{
-			var router = new ConventionalRouter();
-			router.AddRoute<MultiMethodController>(c => c.Get(123), Default.Conventions.ToList());
+			var config = new HttpConfiguration();
+			var router = Router.Create(config, r =>
+			{
+				r.Add<MultiMethodController>(c => c.Get(123));
+			});
 
-			router.Routes.Single().Template.ShouldBe("Tests/MultiMethod/{id}");
+			router.LinkTo<MultiMethodController>(c => c.Get(456)).ShouldBe("Tests/MultiMethod/456");
 		}
 
 		[Fact]
 		public void When_adding_a_single_invalid_method()
 		{
-			var router = new ConventionalRouter();
-			
-			Should.Throw<ArgumentException>(() =>router.AddRoute<InvalidController>(c => c.Get(), Default.Conventions.ToList()));
+			var config = new HttpConfiguration();
+			var router = Router.Create(config, r =>
+			{
+				Should.Throw<ArgumentException>(() => r.Add<InvalidController>(c => c.Get(), Default.Conventions.ToList()));
+			});
 		}
 	}
 
