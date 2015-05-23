@@ -15,7 +15,7 @@ namespace Conifer
 			_routes = new List<TypedRoute>();
 		}
 
-		public IEnumerable<TypedRoute> Routes  { get { return _routes; } }
+		public IEnumerable<TypedRoute> Routes { get { return _routes; } }
 
 		public void AddRoutes<TController>(List<IRouteConvention> conventions) where TController : IHttpController
 		{
@@ -35,9 +35,14 @@ namespace Conifer
 
 			return type
 				.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public)
-				.Where(m => m.ReturnType != typeof (void))
+				.Where(IsValidAction)
 				.Select(m => new TypedRouteBuilder(type, m))
 				.ToList();
+		}
+
+		private static bool IsValidAction(MethodInfo method)
+		{
+			return method.IsPublic && method.IsStatic == false && method.ReturnType != typeof (void);
 		}
 	}
 }
