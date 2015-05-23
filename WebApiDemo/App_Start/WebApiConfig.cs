@@ -23,8 +23,8 @@ namespace WebApiDemo
 					new RawRouteConvention()
 				});
 
-				r.Add<HomeController>(null);	//no conventions applied to this route
-				r.Add<PersonController>();
+				r.AddAll<HomeController>(null);	//no conventions applied to this route
+				r.AddAll<PersonController>();
 			});
 
 			//configure your container of choice

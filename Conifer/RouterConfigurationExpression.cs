@@ -27,16 +27,16 @@ namespace Conifer
 		/// <summary>
 		/// Create routes for all the applicable methods in the controller
 		/// </summary>
-		public void Add<TController>() where TController : IHttpController
+		public void AddAll<TController>() where TController : IHttpController
 		{
-			Add<TController>(_defaultConventions);
+			AddAll<TController>(_defaultConventions);
 		}
 
 		/// <summary>
 		/// Create routes for all the applicable methods in the controller
 		/// </summary>
 		/// <param name="conventions">Override the default conventions with a custom set</param>
-		public void Add<TController>(IEnumerable<IRouteConvention> conventions) where TController : IHttpController
+		public void AddAll<TController>(IEnumerable<IRouteConvention> conventions) where TController : IHttpController
 		{
 			if (conventions == null) conventions = Enumerable.Empty<IRouteConvention>();
 

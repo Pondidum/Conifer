@@ -16,8 +16,8 @@ namespace Conifer.Tests
 			var config = new HttpConfiguration();
 			var router = Router.Create(config, r =>
 			{
-				r.Add<HomeController>(null);	//no conventions applied to this route
-				r.Add<PersonController>();
+				r.AddAll<HomeController>(null);	//no conventions applied to this route
+				r.AddAll<PersonController>();
 			});
 
 			router.LinkTo<HomeController>(c => c.Get()).ShouldBe("");
@@ -31,7 +31,7 @@ namespace Conifer.Tests
 			var config = new HttpConfiguration();
 			var router = Router.Create(config, r =>
 			{
-				r.Add<MultiMethodController>();
+				r.AddAll<MultiMethodController>();
 			});
 
 			router.LinkTo<MultiMethodController>(c => c.Get()).ShouldBe("Tests/MultiMethod");

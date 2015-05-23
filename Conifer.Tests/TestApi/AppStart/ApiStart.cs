@@ -12,8 +12,8 @@ namespace AppStart
 		{
 			var router = Router.Create(config, r =>
 			{
-				r.Add<RootController>(null);
-				r.Add<BooksController>();
+				r.AddAll<RootController>(null);
+				r.AddAll<BooksController>();
 			});
 
 			config.DependencyResolver = new StructureMapDependencyResolver(new Container(c =>
