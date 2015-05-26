@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Conifer.Conventions;
 using Conifer.Tests.Controllers;
 using Shouldly;
 using Xunit;
@@ -59,6 +60,28 @@ namespace Conifer.Tests
 				Should.Throw<ArgumentException>(() => r.Add<InvalidController>(c => c.Get(), Default.Conventions.ToList()));
 			});
 		}
+
+		[Fact]
+		public void When_using_custom_conventions()
+		{
+			var conventions = new IRouteConvention[]
+			{
+				new NamespaceRouteConvention().IgnoreThePrefix("Conifer.Tests"),
+				new ControllerNameRouteConvention(),
+				new MethodNameRouteConvention(),
+				new ParameterNameRouteConvention(),
+				new RawRouteConvention(),
+			};
+
+			var router = new ConventionalRouter();
+			router.AddRoutes<RawOverloadController>(conventions.ToList());
+
+			router.Routes.Select(r => r.Template).ShouldBe(new[]
+			{
+				"RawOverload/ByID/{refnum}",
+				"RawOverload/ByID/{refnum}/raw"
+			});
+		}
 	}
 
 	namespace Controllers
@@ -101,6 +124,19 @@ namespace Conifer.Tests
 		{
 			public void Get()
 			{
+			}
+		}
+
+		public class RawOverloadController : ApiController
+		{
+			public string GetByID(int refnum)
+			{
+				return string.Empty;
+			}
+
+			public byte[] GetByIDRaw(int refnum)
+			{
+				return Enumerable.Empty<byte>().ToArray();
 			}
 		}
 	}
