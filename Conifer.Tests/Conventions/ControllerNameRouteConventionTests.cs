@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http;
 using Conifer.Conventions;
 using Shouldly;
 using Xunit;
@@ -8,7 +9,9 @@ namespace Conifer.Tests.Conventions
 {
 	public class ControllerNameRouteConventionTests
 	{
-		private List<string> RunTest<T>()
+		public string Route { get; set; }
+
+		private void ExecuteConventionOn<T>()
 		{
 			var method = GetType().GetMethod("ToString");
 
@@ -17,39 +20,43 @@ namespace Conifer.Tests.Conventions
 			var convention = new ControllerNameRouteConvention();
 			convention.Execute(template);
 
-			return template
+			Route = template
 				.Parts
 				.Select(p => p.Value)
-				.ToList();
+				.Aggregate("", (a, v) => a + "/" + v);
 		}
 
 		[Fact]
 		public void When_a_controller_is_suffixed_with_controller()
 		{
-			RunTest<SuffixedController>().Single().ShouldBe("Suffixed");
+			ExecuteConventionOn<SuffixedController>();
+			Route.ShouldBe("/Suffixed");
 		}
 
 		[Fact]
 		public void When_a_controller_is_suffixed_twice()
 		{
-			RunTest<TestControllerController>().Single().ShouldBe("TestController");
+			ExecuteConventionOn<TestControllerController>();
+			Route.ShouldBe("/TestController");
 		}
 
 		[Fact]
 		public void When_a_controller_is_not_suffixed()
 		{
-			RunTest<NoSuffix>().Single().ShouldBe("NoSuffix");
+			ExecuteConventionOn<NoSuffix>();
+			Route.ShouldBe("/NoSuffix");
 		}
 
 		[Fact]
 		public void When_a_controller_is_just_called_controller()
 		{
-			RunTest<Controller>().ShouldBeEmpty();
+			ExecuteConventionOn<Controller>();
+			Route.ShouldBeEmpty();
 		}
 
-		internal class Controller { }
-		internal class SuffixedController { }
-		internal class TestControllerController { }
-		internal class NoSuffix { }
+		internal class Controller : ApiController { }
+		internal class SuffixedController : ApiController { }
+		internal class TestControllerController : ApiController { }
+		internal class NoSuffix : ApiController { }
 	}
 }

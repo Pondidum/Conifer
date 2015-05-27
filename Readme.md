@@ -37,5 +37,32 @@ You can change the route conventions on construction of the router, for example 
 
 And generates routes like `Person/1234`
 
+# Conventions
+
+## ControllerNameRouteConvention
+Adds the name of the controller class to the route, removing the suffix "controller" from the class name.
+
+	[Fact]
+	public void When_a_controller_is_suffixed_with_controller()
+	{
+		ExecuteConventionOn<SuffixedController>();
+		Route.ShouldBe("/Suffixed");
+	}
+
+	[Fact]
+	public void When_a_controller_is_not_suffixed()
+	{
+		ExecuteConventionOn<NoSuffix>();
+		Route.ShouldBe("/NoSuffix");
+	}
+
+
+
+## MethodNameRouteConvention
+## NamespaceRouteConvention
+## ParemeterNameRouteConvention
+## RawRouteConvention
+## SpecifiedPartRouteConvention
+
 
 [demo-api]: https://github.com/Pondidum/Conifer/blob/master/WebApiDemo/App_Start/WebApiConfig.cs
