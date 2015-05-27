@@ -1,29 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Conifer.Conventions;
 using Shouldly;
 using Xunit;
 
 namespace Conifer.Tests.Conventions
 {
-	public class ControllerNameRouteConventionTests
+	public class ControllerNameRouteConventionTests : ConventionTests
 	{
-		public string Route { get; set; }
-
-		private void ExecuteConventionOn<T>()
+		public ControllerNameRouteConventionTests()
 		{
-			var method = GetType().GetMethod("ToString");
-
-			var template = new TypedRouteBuilder(typeof(T), method);
-
-			var convention = new ControllerNameRouteConvention();
-			convention.Execute(template);
-
-			Route = template
-				.Parts
-				.Select(p => p.Value)
-				.Aggregate("", (a, v) => a + "/" + v);
+			Convention = () => new ControllerNameRouteConvention();
 		}
 
 		[Fact]
