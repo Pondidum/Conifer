@@ -56,9 +56,53 @@ Adds the name of the controller class to the route, removing the suffix "control
 		Route.ShouldBe("/NoSuffix");
 	}
 
-
-
 ## MethodNameRouteConvention
+Adds the name of the method to the route, removing any `HttpMethod` prefixes from the name, and adding them to the supported route actions.
+
+	[Fact]
+	public void When_the_method_has_a_known_prefix()
+	{
+		ExecuteConventionOn<Controller>(c => c.GetValue());
+
+		Route.ShouldBe("/Value");
+		SupportedMethods.ShouldBe(new[] { HttpMethod.Get });
+	}
+
+	[Fact]
+	public void When_the_method_doesnt_start_with_a_known_prefix()
+	{
+		ExecuteConventionOn<Controller>(c => c.PatchValue());
+
+		Route.ShouldBe("/PatchValue");
+		SupportedMethods.ShouldBeEmpty();
+	}
+
+### .DontStripVerbPrefixes()
+Leaves the method name in tact:
+
+	[Fact]
+	public void When_the_method_has_known_prefix_and_prefix_stripping_is_disabled()
+	{
+		Convention = () => new MethodNameRouteConvention().DontStripVerbPrefixes();
+		ExecuteConventionOn<Controller>(c => c.GetValue());
+
+		Route.ShouldBe("/GetValue");
+		SupportedMethods.ShouldBeEmpty();
+	}
+
+### .UseCustomPrefixes(IEnumerable<HttpMethod> prefixes)
+Replaces the list of known prefixes which can be detected with a custom list.
+
+	[Fact]
+	public void When_using_a_custom_prefix_set()
+	{
+		Convention = () => new MethodNameRouteConvention().UseCustomPrefixes(new[] { new HttpMethod("Patch") });
+		ExecuteConventionOn<Controller>(c => c.PatchValue());
+
+		Route.ShouldBe("/Value");
+		SupportedMethods.ShouldBe(new[] { new HttpMethod("PATCH"), });
+	}
+
 ## NamespaceRouteConvention
 ## ParemeterNameRouteConvention
 ## RawRouteConvention

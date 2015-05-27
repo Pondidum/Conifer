@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Web.Http.Controllers;
 
@@ -15,8 +16,12 @@ namespace Conifer.Tests.Conventions
 
 		protected void ExecuteConventionOn<T>() where T : IHttpController
 		{
-			var method = GetType().GetMethod("ToString");
+			ExecuteConventionOn<T>(c => c.ToString());
+		}
 
+		protected void ExecuteConventionOn<T>(Expression<Action<T>> expression) where T : IHttpController
+		{
+			var method = (expression.Body as MethodCallExpression).Method;
 			var template = new TypedRouteBuilder(typeof(T), method);
 
 			var convention = Convention.Invoke();
