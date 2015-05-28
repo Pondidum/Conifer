@@ -90,7 +90,7 @@ Leaves the method name in tact:
 		SupportedMethods.ShouldBeEmpty();
 	}
 
-### .UseCustomPrefixes(IEnumerable<HttpMethod> prefixes)
+### .UseCustomPrefixes(IEnumerable&lt;HttpMethod&gt; prefixes)
 Replaces the list of known prefixes which can be detected with a custom list.
 
 	[Fact]
@@ -104,6 +104,51 @@ Replaces the list of known prefixes which can be detected with a custom list.
 	}
 
 ## NamespaceRouteConvention
+Adds the namespace of the controller to the route, and removes the root assembly's part and `Controllers` part.
+
+	[Fact]
+	public void The_namespace_should_be_split()
+	{
+		ExecuteConventionOn<Controllers.Controller>();
+		Route.ShouldBe("/Tests/Conventions");
+	}
+
+### .DontIgnoreRootNamespace()
+Adds the assebly level namespace part to the route
+
+	[Fact]
+	public void When_not_ignoring_the_root_namespace()
+	{
+		Convention = () => new NamespaceRouteConvention().DontIgnoreRootNamespace();
+
+		ExecuteConventionOn<Controllers.Controller>();
+		Route.ShouldBe("/Conifer/Tests/Conventions");
+	}
+
+### .DontIgnoreControllersNamespace()
+Adds the `Controllers` namespace part in as part of the route
+
+	[Fact]
+	public void When_not_ignoring_the_controller_namespace()
+	{
+		Convention = () => new NamespaceRouteConvention().DontIgnoreControllersNamespace();
+		ExecuteConventionOn<Controllers.Controller>();
+
+		Route.ShouldBe("/Tests/Conventions/Controllers");
+	}
+
+### .IgnoreThePrefix(string prefix)
+Causes a namespace prefix not to be added to the route.  Useful if your assembly name contains periods (e.g. `Conifer.Tests`)
+
+	[Fact]
+	public void When_ignoring_a_namespace_prefix()
+	{
+		Convention = () => new NamespaceRouteConvention().IgnoreThePrefix("Conifer.Tests.Conventions");
+		ExecuteConventionOn<Candidates.CandidateController>();
+
+		Route.ShouldBe("/Candidates");
+	}
+
 ## ParemeterNameRouteConvention
 ## RawRouteConvention
 ## SpecifiedPartRouteConvention
