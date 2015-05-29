@@ -1,64 +1,62 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http;
 using Conifer.Conventions;
 using Shouldly;
 using Xunit;
 
 namespace Conifer.Tests.Conventions
 {
-	public class SpecifiedPartRouteConventionTests
+	public class SpecifiedPartRouteConventionTests : ConventionTests
 	{
-		private List<string> RunTest(string part)
-		{
-			var method = GetType().GetMethod("ToString");
-
-			var template = new TypedRouteBuilder(typeof(Controller), method);
-
-			var convention = new SpecifiedPartRouteConvention(part);
-			convention.Execute(template);
-
-			return template
-				.Parts
-				.Select(p => p.Value)
-				.ToList();
-		}
-
 		[Fact]
 		public void When_the_part_is_null()
 		{
-			RunTest(null).ShouldBeEmpty();
+			Convention = () => new SpecifiedPartRouteConvention(null);
+			ExecuteConventionOn<Controller>();
+			Route.ShouldBeEmpty();
 		}
 
 		[Fact]
 		public void When_the_part_is_blank()
 		{
-			RunTest("").ShouldBeEmpty();
+			Convention = () => new SpecifiedPartRouteConvention("");
+			ExecuteConventionOn<Controller>();
+			Route.ShouldBeEmpty();
 		}
 
 		[Fact]
 		public void When_the_part_is_whitespace()
 		{
-			RunTest("    ").ShouldBeEmpty();
+			Convention = () => new SpecifiedPartRouteConvention("    ");
+			ExecuteConventionOn<Controller>();
+			Route.ShouldBeEmpty();
 		}
 
 		[Fact]
 		public void When_the_part_is_specified()
 		{
-			RunTest("testing").Single().ShouldBe("testing");
+			Convention = () => new SpecifiedPartRouteConvention("testing");
+			ExecuteConventionOn<Controller>();
+			Route.ShouldBe("/testing");
 		}
 
 		[Fact]
 		public void When_the_part_starts_and_ends_with_a_slash()
 		{
-			RunTest("/test/").Single().ShouldBe("test");
+			Convention = () => new SpecifiedPartRouteConvention("/test/");
+			ExecuteConventionOn<Controller>();
+			Route.ShouldBe("/test");
 		}
 
 		[Fact]
 		public void When_the_part_contains_a_slash()
 		{
-			RunTest("first/second").Single().ShouldBe("first/second");
+			Convention = () => new SpecifiedPartRouteConvention("first/second");
+			ExecuteConventionOn<Controller>();
+			Route.ShouldBe("/first/second");
 		}
 
-		private class Controller { }
+		private class Controller : ApiController { }
 	}
 }
