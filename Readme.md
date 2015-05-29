@@ -199,8 +199,23 @@ Adds the suffix `raw` and renames any action parts to remove the trailing `raw` 
 		Route.ShouldBe("/GetDocument/raw");
 	}
 
-
 ## SpecifiedPartRouteConvention
+Adds a specified part to a route.  Useful to prefix your routes with `/api` or similar.
 
+	[Fact]
+	public void When_the_part_is_specified()
+	{
+		Convention = () => new SpecifiedPartRouteConvention("testing");
+		ExecuteConventionOn<Controller>();
+		Route.ShouldBe("/testing");
+	}
+
+	[Fact]
+	public void When_the_part_contains_a_slash()
+	{
+		Convention = () => new SpecifiedPartRouteConvention("first/second");
+		ExecuteConventionOn<Controller>();
+		Route.ShouldBe("/first/second");
+	}
 
 [demo-api]: https://github.com/Pondidum/Conifer/blob/master/WebApiDemo/App_Start/WebApiConfig.cs
