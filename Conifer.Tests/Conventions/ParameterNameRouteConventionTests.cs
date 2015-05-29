@@ -1,59 +1,55 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Web.Http;
 using Conifer.Conventions;
 using Shouldly;
 using Xunit;
 
 namespace Conifer.Tests.Conventions
 {
-	public class ParameterNameRouteConventionTests
+	public class ParameterNameRouteConventionTests : ConventionTests
 	{
-		private List<string> RunTest(string methodName)
+		public ParameterNameRouteConventionTests()
 		{
-			var method = GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
-
-			var template = new TypedRouteBuilder(typeof(Controller), method);
-
-			var convention = new ParameterNameRouteConvention();
-			convention.Execute(template);
-
-			return template
-				.Parts
-				.Select(p => p.Value)
-				.ToList();
+			Convention = () => new ParameterNameRouteConvention();
 		}
 
 		[Fact]
 		public void When_the_method_has_no_arguments()
 		{
-			RunTest("NoArguments").ShouldBeEmpty();
+			ExecuteConventionOn<Controller>(c => c.NoArguments());
+			Route.ShouldBeEmpty();
 		}
 
 		[Fact]
 		public void When_the_method_has_one_argument()
 		{
-			RunTest("OneArgument").Single().ShouldBe("{test}");
+			ExecuteConventionOn<Controller>(c => c.OneArgument("a"));
+			Route.ShouldBe("/{test}");
 		}
 
 		[Fact]
 		public void When_the_method_has_two_arguments()
 		{
-			RunTest("TwoArguments").ShouldBe(new[] { "{text}", "{value}" });
-
+			ExecuteConventionOn<Controller>(c => c.TwoArguments("a", 1));
+			Route.ShouldBe("/{text}/{value}");
 		}
 
 		[Fact]
 		public void When_the_method_has_a_param_array_argument()
 		{
-			RunTest("ParamArgument").Single().ShouldBe("{items}");
+			ExecuteConventionOn<Controller>(c => c.ParamArgument());
+			Route.ShouldBe("/{items}");
 		}
 
-		private class Controller { }
+		private class Controller : ApiController
+		{
+			public void NoArguments() { }
+			public void OneArgument(string test) { }
+			public void TwoArguments(string text, int value) { }
+			public void ParamArgument(params string[] items) { }
+		}
 
-		private void NoArguments() { }
-		private void OneArgument(string test) { }
-		private void TwoArguments(string text, int value) { }
-		private void ParamArgument(params string[] items) { }
 	}
 }
