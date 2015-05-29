@@ -16,17 +16,17 @@ namespace Conifer.Tests.Conventions
 		}
 
 		[Fact]
-		public void When_the_action_ends_in_raw()
-		{
-			ExecuteConventionOn<Controller>(c => c.GetDocumentRaw());
-			Route.ShouldBe("/raw");
-		}
-
-		[Fact]
 		public void When_the_action_doesnt_end_in_raw()
 		{
 			ExecuteConventionOn<Controller>(c => c.GetDocument());
 			Route.ShouldBeEmpty();
+		}
+
+		[Fact]
+		public void When_the_action_ends_in_raw()
+		{
+			ExecuteConventionOn<Controller>(c => c.GetDocumentRaw());
+			Route.ShouldBe("/raw");
 		}
 
 		[Fact]

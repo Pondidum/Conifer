@@ -150,7 +150,56 @@ Causes a namespace prefix not to be added to the route.  Useful if your assembly
 	}
 
 ## ParemeterNameRouteConvention
+Adds all the parameters for an action to the route.
+
+	[Fact]
+	public void When_the_method_has_no_arguments()
+	{
+		ExecuteConventionOn<Controller>(c => c.NoArguments());
+		Route.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public void When_the_method_has_one_argument()
+	{
+		ExecuteConventionOn<Controller>(c => c.OneArgument("a"));
+		Route.ShouldBe("/{test}");
+	}
+
+	[Fact]
+	public void When_the_method_has_two_arguments()
+	{
+		ExecuteConventionOn<Controller>(c => c.TwoArguments("a", 1));
+		Route.ShouldBe("/{text}/{value}");
+	}
+
 ## RawRouteConvention
+Adds the suffix `raw` and renames any action parts to remove the trailing `raw` name.
+
+	[Fact]
+	public void When_the_action_doesnt_end_in_raw()
+	{
+		ExecuteConventionOn<Controller>(c => c.GetDocument());
+		Route.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public void When_the_action_ends_in_raw()
+	{
+		ExecuteConventionOn<Controller>(c => c.GetDocumentRaw());
+		Route.ShouldBe("/raw");
+	}
+
+	[Fact]
+	public void When_there_is_an_action_in_the_route_ending_in_raw()
+	{
+		PreConfigure = template => template.Parts.Add(new ActionRoutePart {Value = "GetDocumentRaw"});
+
+		ExecuteConventionOn<Controller>(c => c.GetDocumentRaw());
+		Route.ShouldBe("/GetDocument/raw");
+	}
+
+
 ## SpecifiedPartRouteConvention
 
 
