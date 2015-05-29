@@ -78,7 +78,7 @@ Adds the name of the method to the route, removing any `HttpMethod` prefixes fro
 	}
 
 ### .DontStripVerbPrefixes()
-Leaves the method name in tact:
+Leaves the method name in tact.
 
 	[Fact]
 	public void When_the_method_has_known_prefix_and_prefix_stripping_is_disabled()
@@ -114,7 +114,7 @@ Adds the namespace of the controller to the route, and removes the root assembly
 	}
 
 ### .DontIgnoreRootNamespace()
-Adds the assebly level namespace part to the route
+Adds the assembly level namespace part to the route.
 
 	[Fact]
 	public void When_not_ignoring_the_root_namespace()
@@ -126,7 +126,7 @@ Adds the assebly level namespace part to the route
 	}
 
 ### .DontIgnoreControllersNamespace()
-Adds the `Controllers` namespace part in as part of the route
+Adds the `Controllers` namespace part in as part of the route.
 
 	[Fact]
 	public void When_not_ignoring_the_controller_namespace()
@@ -138,7 +138,7 @@ Adds the `Controllers` namespace part in as part of the route
 	}
 
 ### .IgnoreThePrefix(string prefix)
-Causes a namespace prefix not to be added to the route.  Useful if your assembly name contains periods (e.g. `Conifer.Tests`)
+Causes a namespace prefix not to be added to the route.  Useful if your assembly name contains periods (e.g. `Conifer.Tests`).
 
 	[Fact]
 	public void When_ignoring_a_namespace_prefix()
