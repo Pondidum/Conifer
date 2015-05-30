@@ -39,6 +39,45 @@ And generates routes like `Person/1234`
 
 # Conventions
 
+## Defaults
+The router's default conventions are:
+
+	static Default()
+	{
+		Conventions = new IRouteConvention[]
+		{
+			new NamespaceRouteConvention(),
+			new ControllerNameRouteConvention(),
+			new MethodNameRouteConvention(),
+			new ParameterNameRouteConvention(),
+			new RawRouteConvention()
+		};
+	}
+
+So the following controller:
+
+	namespace WebApiDemo.Controllers
+	{
+		public class PersonController : ApiController
+		{
+			public string GetDocument(int id)
+			{
+				return "{}";
+			}
+
+			public byte[] GetDocumentRaw(int id)
+			{
+				return new byte[] {};
+			}
+		}
+	}
+
+Would generate the following routes:
+
+	/Person/Document/{id}
+	/Person/Document/{id}/raw
+
+
 ## ControllerNameRouteConvention
 Adds the name of the controller class to the route, removing the suffix "controller" from the class name.
 
