@@ -14,7 +14,7 @@ tool_nuget = 'tools/nuget/nuget.exe'
 tool_xunit = 'tools/xunit/xunit.console.clr4.exe'
 
 @project_name = 'Conifer'
-project_version = "1.0.#{ci_build}"
+@project_version = "1.0.#{ci_build}"
 
 project_output = 'build/bin'
 package_output = 'build/deploy'
@@ -34,8 +34,8 @@ desc 'Set the assembly version number'
 asmver :version do |v|
 
   v.file_path = "#{@project_name}/Properties/AssemblyVersion.cs"
-  v.attributes assembly_version: project_version,
-               assembly_file_version: project_version
+  v.attributes assembly_version: @project_version,
+               assembly_file_version: @project_version
 end
 
 desc 'Compile all projects'
@@ -68,7 +68,7 @@ nugets_pack :pack do |n|
     m.authors = 'Andy Dote'
     m.project_url = 'https://github.com/pondidum/#{@project_name}'
     m.license_url = 'https://github.com/Pondidum/#{@project_name}/blob/master/LICENSE.txt'
-    m.version = project_version
+    m.version = @project_version
     m.tags = 'rest router webapi mvc routing convention'
   end
 
