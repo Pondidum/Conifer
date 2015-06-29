@@ -82,6 +82,22 @@ namespace Conifer.Tests
 				"RawOverload/ByID/{refnum}/raw"
 			});
 		}
+
+		[Fact]
+		public void All_routes_get_populated()
+		{
+			var config = new HttpConfiguration();
+			var router = Router.Create(config, r =>
+			{
+				r.AddAll<PersonController>();
+			});
+
+			router.AllRoutes().ShouldBe(new[]
+			{
+				"Tests/Person",
+				"Tests/Person/ByID/{id}"
+			}, ignoreOrder: true);
+		}
 	}
 
 	namespace Controllers
