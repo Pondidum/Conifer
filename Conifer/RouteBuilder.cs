@@ -36,9 +36,9 @@ namespace Conifer
 				.Where(r => parameterNames.All(p => r.Template.Contains("{" + p + "}")));
 		}
 
-		public IEnumerable<string> AllRoutes()
+		public IEnumerable<TypedRoute> AllRoutes()
 		{
-			return _routes.Select(r => r.Template);
+			return _routes;
 		}
 	}
 }

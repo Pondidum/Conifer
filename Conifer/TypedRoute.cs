@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
@@ -33,6 +34,14 @@ namespace Conifer
 			var builder = context.CreateBuilder(Template);
 
 			return builder.Build();
+		}
+
+		public override string ToString()
+		{
+			return string.Format(
+				"[{0}] {1}",
+				string.Join(" ", SupportedMethods.Select(m => m.Method).OrderBy(m => m)),
+				Template);
 		}
 	}
 }

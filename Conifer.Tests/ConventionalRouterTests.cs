@@ -92,7 +92,7 @@ namespace Conifer.Tests
 				r.AddAll<PersonController>();
 			});
 
-			router.AllRoutes().ShouldBe(new[]
+			router.AllRoutes().Select(r => r.Template).ShouldBe(new[]
 			{
 				"Tests/Person",
 				"Tests/Person/ByID/{id}"
