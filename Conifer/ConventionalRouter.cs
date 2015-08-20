@@ -20,7 +20,21 @@ namespace Conifer
 
 		public void AddRoutes<TController>(List<IRouteConvention> conventions) where TController : IHttpController
 		{
-			var methods = FindMethods<TController>();
+			AddRoutes(typeof(TController), conventions);
+		}
+
+		public void AddRoutes(Type controllerType, List<IRouteConvention> conventions)
+		{
+			var httpController = typeof(IHttpController);
+
+			if (httpController.IsAssignableFrom(controllerType) == false)
+			{
+				throw new ArgumentException(
+					string.Format("{0} must implement {1}", controllerType.Name, httpController.Name),
+					"controllerType");
+			}
+
+			var methods = FindMethods(controllerType);
 
 			foreach (var template in methods)
 			{
@@ -40,25 +54,22 @@ namespace Conifer
 				throw new ArgumentException(expression + " is not a valid controller action", "expression");
 			}
 
-			var template = new TypedRouteBuilder(typeof (TController), method);
+			var template = new TypedRouteBuilder(typeof(TController), method);
 
 			_routes.Add(template.Build(conventions));
 		}
 
-		private static List<TypedRouteBuilder> FindMethods<TController>() where TController : IHttpController
+		private static IEnumerable<TypedRouteBuilder> FindMethods(Type controllerType)
 		{
-			var type = typeof(TController);
-
-			return type
+			return controllerType
 				.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public)
 				.Where(IsValidAction)
-				.Select(m => new TypedRouteBuilder(type, m))
-				.ToList();
+				.Select(m => new TypedRouteBuilder(controllerType, m));
 		}
 
 		private static bool IsValidAction(MethodInfo method)
 		{
-			return method.IsPublic && method.IsStatic == false && method.ReturnType != typeof (void);
+			return method.IsPublic && method.IsStatic == false && method.ReturnType != typeof(void);
 		}
 	}
 }
