@@ -86,17 +86,22 @@ namespace Conifer.Tests
 		[Fact]
 		public void All_routes_get_populated()
 		{
-			var config = new HttpConfiguration();
-			var router = Router.Create(config, r =>
-			{
-				r.AddAll<PersonController>();
-			});
+			var router = new ConventionalRouter();
+			router.AddRoutes<PersonController>(Default.Conventions.ToList());
 
-			router.AllRoutes().Select(r => r.Template).ShouldBe(new[]
+			router.Routes.Select(r => r.Template).ShouldBe(new[]
 			{
 				"Tests/Person",
 				"Tests/Person/ByID/{id}"
 			}, ignoreOrder: true);
+		}
+
+		[Fact]
+		public void When_adding_a_route_for_a_non_controller()
+		{
+			var router = new ConventionalRouter();
+
+			Should.Throw<ArgumentException>(() => router.AddRoutes(typeof(object), new List<IRouteConvention>()));
 		}
 	}
 
