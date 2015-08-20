@@ -9,7 +9,10 @@ namespace Conifer
 	{
 		IEnumerable<TypedRoute> Routes { get; }
 
-		void AddRoutes<TController>(List<IRouteConvention> conventions) where TController : IHttpController;
+		void AddRoutes(Type controllerType, List<IRouteConvention> conventions);
+
+		void AddRoutes<TController>(List<IRouteConvention> conventions)
+			where TController : IHttpController;
 
 		void AddRoute<TController>(Expression<Action<TController>> expression, List<IRouteConvention> conventions)
 			where TController : IHttpController;

@@ -41,8 +41,7 @@ namespace Conifer
 			_router.AddRoutes<TController>(conventions.ToList());
 		}
 
-		/// <summary>Creates a route for the specified method in the controller
-		/// </summary>
+		/// <summary>Creates a route for the specified method in the controller </summary>
 		public void Add<TController>(Expression<Action<TController>> expression)
 			where TController : IHttpController
 		{
@@ -58,6 +57,15 @@ namespace Conifer
 			if (conventions == null) conventions = Enumerable.Empty<IRouteConvention>();
 
 			_router.AddRoute(expression, conventions.ToList());
+		}
+
+		/// <summary>Creates routes for all the applicable methods in all of the provided controllers</summary>
+		public void AddAllFrom(IEnumerable<Type> controllers)
+		{
+			foreach (var controller in controllers)
+			{
+				_router.AddRoutes(controller, _defaultConventions);
+			}
 		}
 	}
 }

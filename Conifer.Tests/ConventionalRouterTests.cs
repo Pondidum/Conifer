@@ -103,6 +103,23 @@ namespace Conifer.Tests
 
 			Should.Throw<ArgumentException>(() => router.AddRoutes(typeof(object), new List<IRouteConvention>()));
 		}
+
+		[Fact]
+		public void When_adding_all_routes_for_multiple_controllers()
+		{
+			var config = new HttpConfiguration();
+			var router = Router.Create(config, r =>
+			{
+				r.AddAllFrom(new[] { typeof(HomeController), typeof(PersonController) });
+			});
+
+			router.AllRoutes().Select(r=> r.Template).ShouldBe(new[]
+			{
+				"Tests/Home",
+				"Tests/Person",
+				"Tests/Person/ByID/{id}"
+			});
+		}
 	}
 
 	namespace Controllers
