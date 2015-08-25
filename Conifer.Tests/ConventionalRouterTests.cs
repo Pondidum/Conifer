@@ -120,6 +120,15 @@ namespace Conifer.Tests
 				"Tests/Person/ByID/{id}"
 			});
 		}
+
+		[Fact]
+		public void When_routing_a_http_and_raw_suffix_only_method()
+		{
+			var router = new ConventionalRouter();
+			router.AddRoutes<DocumentController>(Default.Conventions.ToList());
+
+			router.Routes.Single().Template.ShouldBe("Tests/Document/{id}/raw");
+		}
 	}
 
 	namespace Controllers
@@ -173,6 +182,14 @@ namespace Conifer.Tests
 			}
 
 			public byte[] GetByIDRaw(int refnum)
+			{
+				return Enumerable.Empty<byte>().ToArray();
+			}
+		}
+
+		public class DocumentController : ApiController
+		{
+			public byte[] GetRaw(int id)
 			{
 				return Enumerable.Empty<byte>().ToArray();
 			}

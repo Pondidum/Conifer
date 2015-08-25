@@ -9,7 +9,7 @@ namespace Conifer.Conventions
 		{
 			if (template.Method.Name.EndsWith("Raw"))
 			{
-				template.Parts.Add(new ConstantRoutePart { Value = "raw"});
+				template.Parts.Add(new ConstantRoutePart { Value = "raw" });
 			}
 
 			var action = template
@@ -20,6 +20,11 @@ namespace Conifer.Conventions
 			if (action == null)
 			{
 				return;
+			}
+
+			if (action.Value.Equals("raw", StringComparison.OrdinalIgnoreCase))
+			{
+				template.Parts.Remove(action);
 			}
 
 			if (action.Value.EndsWith("raw", StringComparison.OrdinalIgnoreCase))
