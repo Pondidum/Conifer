@@ -11,7 +11,7 @@ namespace WebApiDemo
 	{
 		public static void Register(HttpConfiguration config)
 		{
-			var router = RouterCreator.Create(config, r =>
+			var router = new Router(config, r =>
 			{
 				//setup the default conventions, these 3 will generate routes like:
 				//  /Person/View/1234

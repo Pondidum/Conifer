@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Web.Http;
 
 namespace Conifer
 {
@@ -9,9 +10,15 @@ namespace Conifer
 	{
 		private readonly List<TypedRoute> _routes;
 
-		public Router(IEnumerable<TypedRoute> routes)
+		public Router(HttpConfiguration http, Action<RouterConfigurationExpression> configure)
 		{
-			_routes = routes.ToList();
+			var router = new ConventionalRouter();
+			var expression = new RouterConfigurationExpression(router);
+			configure(expression);
+
+			_routes = router.Routes.ToList();
+
+			http.MapHttpAttributeRoutes(new TypedDirectRouteProvider(this));
 		}
 
 		public string LinkTo<T>(Expression<Action<T>> expression)
