@@ -37,7 +37,7 @@ namespace WebApiDemo
 				});
 
 				//just make sure RouteBuilder is the same instance each time:
-				c.For<RouteBuilder>().Use(router);
+				c.For<Router>().Use(router);
 			}));
 		}
 	}

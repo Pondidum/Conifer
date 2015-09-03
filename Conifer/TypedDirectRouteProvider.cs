@@ -7,9 +7,9 @@ namespace Conifer
 {
 	public class TypedDirectRouteProvider : DefaultDirectRouteProvider
 	{
-		private readonly RouteBuilder _routes;
+		private readonly Router _routes;
 
-		public TypedDirectRouteProvider(RouteBuilder routes)
+		public TypedDirectRouteProvider(Router routes)
 		{
 			_routes = routes;
 		}

@@ -5,11 +5,11 @@ using System.Linq.Expressions;
 
 namespace Conifer
 {
-	public class RouteBuilder
+	public class Router
 	{
 		private readonly List<TypedRoute> _routes;
 
-		public RouteBuilder(IEnumerable<TypedRoute> routes)
+		public Router(IEnumerable<TypedRoute> routes)
 		{
 			_routes = routes.ToList();
 		}

@@ -6,9 +6,9 @@ namespace Controllers
 {
 	public class BooksController : ApiController
 	{
-		private readonly RouteBuilder _router;
+		private readonly Router _router;
 
-		public BooksController(RouteBuilder router)
+		public BooksController(Router router)
 		{
 			_router = router;
 		}

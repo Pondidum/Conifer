@@ -6,9 +6,9 @@ namespace Controllers
 {
 	public class RootController : ApiController
 	{
-		private readonly RouteBuilder _router;
+		private readonly Router _router;
 
-		public RootController(RouteBuilder router)
+		public RootController(Router router)
 		{
 			_router = router;
 		}

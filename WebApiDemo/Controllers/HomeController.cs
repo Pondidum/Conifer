@@ -5,9 +5,9 @@ namespace WebApiDemo.Controllers
 {
 	public class HomeController : ApiController
 	{
-		private readonly RouteBuilder _router;
+		private readonly Router _router;
 
-		public HomeController(RouteBuilder router)
+		public HomeController(Router router)
 		{
 			_router = router;
 		}
