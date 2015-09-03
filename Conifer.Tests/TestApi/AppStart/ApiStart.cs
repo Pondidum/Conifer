@@ -10,7 +10,7 @@ namespace AppStart
 	{
 		public static void Register(HttpConfiguration config)
 		{
-			var router = Router.Create(config, r =>
+			var router = RouterCreator.Create(config, r =>
 			{
 				r.AddAll<RootController>(null);
 				r.AddAll<BooksController>();

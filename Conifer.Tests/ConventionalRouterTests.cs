@@ -15,7 +15,7 @@ namespace Conifer.Tests
 		public void When_using_the_default_conventions()
 		{
 			var config = new HttpConfiguration();
-			var router = Router.Create(config, r =>
+			var router = RouterCreator.Create(config, r =>
 			{
 				r.AddAll<HomeController>(null);	//no conventions applied to this route
 				r.AddAll<PersonController>();
@@ -30,7 +30,7 @@ namespace Conifer.Tests
 		public void When_a_controller_has_overloaded_methods()
 		{
 			var config = new HttpConfiguration();
-			var router = Router.Create(config, r =>
+			var router = RouterCreator.Create(config, r =>
 			{
 				r.AddAll<MultiMethodController>();
 			});
@@ -43,7 +43,7 @@ namespace Conifer.Tests
 		public void When_adding_a_single_method()
 		{
 			var config = new HttpConfiguration();
-			var router = Router.Create(config, r =>
+			var router = RouterCreator.Create(config, r =>
 			{
 				r.Add<MultiMethodController>(c => c.Get(123));
 			});
@@ -55,7 +55,7 @@ namespace Conifer.Tests
 		public void When_adding_a_single_invalid_method()
 		{
 			var config = new HttpConfiguration();
-			var router = Router.Create(config, r =>
+			var router = RouterCreator.Create(config, r =>
 			{
 				Should.Throw<ArgumentException>(() => r.Add<InvalidController>(c => c.Get(), Default.Conventions.ToList()));
 			});
@@ -108,7 +108,7 @@ namespace Conifer.Tests
 		public void When_adding_all_routes_for_multiple_controllers()
 		{
 			var config = new HttpConfiguration();
-			var router = Router.Create(config, r =>
+			var router = RouterCreator.Create(config, r =>
 			{
 				r.AddAllFrom(new[] { typeof(HomeController), typeof(PersonController) });
 			});

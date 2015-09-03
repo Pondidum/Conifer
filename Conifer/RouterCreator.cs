@@ -3,7 +3,7 @@ using System.Web.Http;
 
 namespace Conifer
 {
-	public class Router
+	public class RouterCreator
 	{
 		/// <summary>
 		/// Creates a strong-typed router for routing and linking actions
