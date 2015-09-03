@@ -10,17 +10,27 @@ namespace Conifer
 	{
 		private readonly List<TypedRoute> _routes;
 
-		public Router(HttpConfiguration http, Action<RouterConfigurationExpression> configure)
+		public Router(HttpConfiguration http, RouterConfigurationExpression expression)
 		{
-			var expression = new RouterConfigurationExpression();
-			configure(expression);
-
 			var router = new ConventionalRouter();
 			expression.ApplyTo(router);
 
 			_routes = router.Routes.ToList();
 
 			http.MapHttpAttributeRoutes(new TypedDirectRouteProvider(this));
+		}
+
+
+		public Router(HttpConfiguration http, Action<RouterConfigurationExpression> configure)
+			:this(http, CreateConfigurations(configure))
+		{
+		}
+
+		private static RouterConfigurationExpression CreateConfigurations(Action<RouterConfigurationExpression> configure)
+		{
+			var expression = new RouterConfigurationExpression();
+			configure(expression);
+			return expression;
 		}
 
 		public string LinkTo<T>(Expression<Action<T>> expression)
