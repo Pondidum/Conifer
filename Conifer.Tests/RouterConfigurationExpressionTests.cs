@@ -20,13 +20,14 @@ namespace Conifer.Tests
 		public RouterConfigurationExpressionTests()
 		{
 			_router = Substitute.For<IConventionalRouter>();
-			_expression = new RouterConfigurationExpression(_router);
+			_expression = new RouterConfigurationExpression();
 		}
 
 		[Fact]
 		public void When_no_default_conventions_are_specified()
 		{
 			_expression.AddAll<Controller>();
+			_expression.ApplyTo(_router);
 
 			_router.Received().AddRoutes<Controller>(Arg.Do<List<IRouteConvention>>(x => x.ShouldBe(Default.Conventions)));
 		}
@@ -35,6 +36,7 @@ namespace Conifer.Tests
 		public void When_no_default_conventions_are_specified_and_individual_are_used()
 		{
 			_expression.AddAll<Controller>(new[] { new ControllerNameRouteConvention() });
+			_expression.ApplyTo(_router);
 
 			_router.Received().AddRoutes<Controller>(Arg.Do<List<IRouteConvention>>(x => x.ShouldBe(new[] { new ControllerNameRouteConvention() })));
 		}
@@ -43,6 +45,7 @@ namespace Conifer.Tests
 		public void When_no_default_conventions_are_specified_and_null_is_specified()
 		{
 			_expression.AddAll<Controller>(null);
+			_expression.ApplyTo(_router);
 
 			_router.Received().AddRoutes<Controller>(Arg.Do<List<IRouteConvention>>(x => x.ShouldBeEmpty()));
 		}
@@ -52,6 +55,7 @@ namespace Conifer.Tests
 		{
 			_expression.DefaultConventionsAre(new[] { new ControllerNameRouteConvention() });
 			_expression.AddAll<Controller>();
+			_expression.ApplyTo(_router);
 
 			_router.Received().AddRoutes<Controller>(Arg.Do<List<IRouteConvention>>(x => x.ShouldBe(new[] { new ControllerNameRouteConvention() })));
 		}
@@ -60,6 +64,7 @@ namespace Conifer.Tests
 		public void When_adding_a_single_method_and_no_default_conventions_are_specified()
 		{
 			_expression.Add<Controller>(c => c.Test());
+			_expression.ApplyTo(_router);
 
 			_router.Received().AddRoute<Controller>(Arg.Any<Expression<Action<Controller>>>(), Arg.Do<List<IRouteConvention>>(x => x.ShouldBe(Default.Conventions)));
 		}
@@ -68,6 +73,7 @@ namespace Conifer.Tests
 		public void When_adding_a_single_method_and_no_default_conventions_are_specified_and_individual_are_used()
 		{
 			_expression.Add<Controller>(c => c.Test(), new[] { new ControllerNameRouteConvention() });
+			_expression.ApplyTo(_router);
 
 			_router.Received().AddRoute<Controller>(Arg.Any<Expression<Action<Controller>>>(), Arg.Do<List<IRouteConvention>>(x => x.ShouldBe(new[] { new ControllerNameRouteConvention() })));
 		}
@@ -76,6 +82,7 @@ namespace Conifer.Tests
 		public void When_adding_a_single_method_and_no_default_conventions_are_specified_and_null_is_specified()
 		{
 			_expression.Add<Controller>(c => c.Test(), null);
+			_expression.ApplyTo(_router);
 
 			_router.Received().AddRoute<Controller>(Arg.Any<Expression<Action<Controller>>>(), Arg.Do<List<IRouteConvention>>(x => x.ShouldBeEmpty()));
 		}
@@ -85,6 +92,7 @@ namespace Conifer.Tests
 		{
 			_expression.DefaultConventionsAre(new[] { new ControllerNameRouteConvention() });
 			_expression.Add<Controller>(c => c.Test());
+			_expression.ApplyTo(_router);
 
 			_router.Received().AddRoute<Controller>(Arg.Any<Expression<Action<Controller>>>(), Arg.Do<List<IRouteConvention>>(x => x.ShouldBe(new[] { new ControllerNameRouteConvention() })));
 		}

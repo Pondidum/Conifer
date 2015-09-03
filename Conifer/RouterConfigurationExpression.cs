@@ -9,12 +9,12 @@ namespace Conifer
 	public class RouterConfigurationExpression
 	{
 		private readonly List<IRouteConvention> _defaultConventions;
-		private readonly IConventionalRouter _router;
+		private readonly List<Action<IConventionalRouter>> _directions;
 
-		public RouterConfigurationExpression(IConventionalRouter router)
+		public RouterConfigurationExpression()
 		{
 			_defaultConventions = Default.Conventions.ToList();
-			_router = router;
+			_directions = new List<Action<IConventionalRouter>>();
 		}
 
 		/// <summary>Setup the default convetions to create routes</summary>
@@ -38,7 +38,7 @@ namespace Conifer
 		{
 			if (conventions == null) conventions = Enumerable.Empty<IRouteConvention>();
 
-			_router.AddRoutes<TController>(conventions.ToList());
+			_directions.Add(router => router.AddRoutes<TController>(conventions.ToList()));
 		}
 
 		/// <summary>Creates a route for the specified method in the controller </summary>
@@ -56,7 +56,7 @@ namespace Conifer
 		{
 			if (conventions == null) conventions = Enumerable.Empty<IRouteConvention>();
 
-			_router.AddRoute(expression, conventions.ToList());
+			_directions.Add(router => router.AddRoute(expression, conventions.ToList()));
 		}
 
 		/// <summary>Creates routes for all the applicable methods in all of the provided controllers</summary>
@@ -64,8 +64,13 @@ namespace Conifer
 		{
 			foreach (var controller in controllers)
 			{
-				_router.AddRoutes(controller, _defaultConventions);
+				_directions.Add(router => router.AddRoutes(controller, _defaultConventions));
 			}
+		}
+
+		public void ApplyTo(IConventionalRouter router)
+		{
+			_directions.ForEach(direction => direction(router));
 		}
 	}
 }

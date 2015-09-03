@@ -12,9 +12,11 @@ namespace Conifer
 
 		public Router(HttpConfiguration http, Action<RouterConfigurationExpression> configure)
 		{
-			var router = new ConventionalRouter();
-			var expression = new RouterConfigurationExpression(router);
+			var expression = new RouterConfigurationExpression();
 			configure(expression);
+
+			var router = new ConventionalRouter();
+			expression.ApplyTo(router);
 
 			_routes = router.Routes.ToList();
 

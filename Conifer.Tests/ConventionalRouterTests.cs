@@ -54,10 +54,14 @@ namespace Conifer.Tests
 		[Fact]
 		public void When_adding_a_single_invalid_method()
 		{
-			var config = new HttpConfiguration();
-			var router = new Router(config, r =>
+			Should.Throw<ArgumentException>(() =>
 			{
-				Should.Throw<ArgumentException>(() => r.Add<InvalidController>(c => c.Get(), Default.Conventions.ToList()));
+				var config = new HttpConfiguration();
+				var router = new Router(config, r =>
+				{
+					r.Add<InvalidController>(c => c.Get(), Default.Conventions.ToList());
+				});
+
 			});
 		}
 
