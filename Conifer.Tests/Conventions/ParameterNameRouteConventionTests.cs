@@ -50,6 +50,14 @@ namespace Conifer.Tests.Conventions
 			Route.ShouldBeEmpty();
 		}
 
+		[Fact]
+		public void When_ignoring_arguments_with_a_match()
+		{
+			Convention = ()=> new ParameterNameRouteConvention().IgnoreArgumentsCalled("text");
+			ExecuteConventionOn<Controller>(c => c.TwoArguments("val", 1));
+			Route.ShouldBe("/{value}");
+		}
+
 		private class Controller : ApiController
 		{
 			public void NoArguments() { }
