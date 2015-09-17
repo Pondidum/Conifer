@@ -14,6 +14,7 @@ namespace AppStart
 			{
 				r.AddAll<RootController>(null);
 				r.AddAll<BooksController>();
+				r.AddAll<ResolutionController>();
 			});
 
 			config.DependencyResolver = new StructureMapDependencyResolver(new Container(c =>

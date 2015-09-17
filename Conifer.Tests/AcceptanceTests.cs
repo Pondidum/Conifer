@@ -79,6 +79,34 @@ namespace Conifer.Tests
 			MakeRequest("Books/ByID/1234").Links["next"].ShouldBe("Books/ByID/1235");
 		}
 
+		[Fact]
+		public void Resolution_get_request_works()
+		{
+			var result = _server.HttpClient.GetStringAsync("resolution").Result;
+			result.ShouldBe("\"Get Response String\"");
+        }
+
+		[Fact]
+		public void Resolution_get_first_request_works()
+		{
+			var result = _server.HttpClient.GetStringAsync("resolution/one").Result;
+			result.ShouldBe("\"Get First Response String\"");
+		}
+
+		[Fact]
+		public void Resolution_get_second_request_works()
+		{
+			var result = _server.HttpClient.GetStringAsync("resolution/one/two").Result;
+			result.ShouldBe("\"Get First Second Response String\"");
+		}
+
+		[Fact]
+		public void Resolution_put_request_works()
+		{
+			var result = _server.HttpClient.PutAsync("resolution", null).Result.Content.ReadAsStringAsync().Result;
+			result.ShouldBe("\"Put Response: \"");
+		}
+
 		public void Dispose()
 		{
 			_server.Dispose();

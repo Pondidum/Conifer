@@ -102,7 +102,9 @@
     <Compile Include="Scratchpad.cs" />
     <Compile Include="TestApi\AppStart\ApiStart.cs" />
     <Compile Include="TestApi\Controllers\BooksController.cs" />
+    <Compile Include="TestApi\Controllers\ResolutionController.cs" />
     <Compile Include="TestApi\Controllers\RootController.cs" />
+    <Compile Include="TestApi\Models\ResolutionModel.cs" />
     <Compile Include="TestApi\Models\RestModel.cs" />
     <Compile Include="TypedRouteBuilderTests.cs" />
     <Compile Include="TypedRouteTests.cs" />
