@@ -47,11 +47,16 @@ namespace Conifer
 			return template;
 		}
 
-		public IEnumerable<TypedRoute> RoutesFor(Type controllerType, string actionName, IEnumerable<string> parameterNames)
+		public IEnumerable<TypedRoute> RoutesFor(Type controllerType, string actionName)
 		{
 			return _routes
 				.Where(r => r.ControllerType == controllerType)
-				.Where(r => r.ActionName == actionName)
+				.Where(r => r.ActionName == actionName);
+		}
+
+		public IEnumerable<TypedRoute> RoutesFor(Type controllerType, string actionName, IEnumerable<string> parameterNames)
+		{
+			return RoutesFor(controllerType, actionName)
 				.Where(r => parameterNames.All(p => r.Template.Contains("{" + p + "}")));
 		}
 

@@ -18,10 +18,9 @@ namespace Conifer
 		{
 			var controllerType = actionDescriptor.ControllerDescriptor.ControllerType;
 			var actionName = actionDescriptor.ActionName;
-			var parameters = actionDescriptor.GetParameters().Select(p => p.ParameterName);
 
 			var routes = _routes
-				.RoutesFor(controllerType, actionName, parameters)
+				.RoutesFor(controllerType, actionName)
 				.ToList();
 
 			actionDescriptor
