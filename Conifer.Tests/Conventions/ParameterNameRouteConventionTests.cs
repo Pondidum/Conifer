@@ -43,12 +43,20 @@ namespace Conifer.Tests.Conventions
 			Route.ShouldBe("/{items}");
 		}
 
+		[Fact]
+		public void When_the_method_has_a_frombody_attributed_argument()
+		{
+			ExecuteConventionOn<Controller>(c => c.BodyArgument("testing"));
+			Route.ShouldBeEmpty();
+		}
+
 		private class Controller : ApiController
 		{
 			public void NoArguments() { }
 			public void OneArgument(string test) { }
 			public void TwoArguments(string text, int value) { }
 			public void ParamArgument(params string[] items) { }
+			public void BodyArgument([FromBody]string value) { }
 		}
 
 	}
