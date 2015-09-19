@@ -53,9 +53,41 @@ namespace Conifer.Tests.Conventions
 		[Fact]
 		public void When_ignoring_arguments_with_a_match()
 		{
-			Convention = ()=> new ParameterNameRouteConvention().IgnoreArgumentsCalled("text");
+			Convention = () => new ParameterNameRouteConvention().IgnoreArgumentsCalled("text");
 			ExecuteConventionOn<Controller>(c => c.TwoArguments("val", 1));
 			Route.ShouldBe("/{value}");
+		}
+
+		[Fact]
+		public void When_detecting_greedy_and_there_are_no_arguments()
+		{
+			Convention = () => new ParameterNameRouteConvention().DetectGreedyArguments();
+			ExecuteConventionOn<GreedyController>(c => c.NoArguments());
+			Route.ShouldBeEmpty();
+		}
+
+		[Fact]
+		public void When_detecting_greedy_and_there_is_one_non_greedy_argument()
+		{
+			Convention = () => new ParameterNameRouteConvention().DetectGreedyArguments();
+			ExecuteConventionOn<GreedyController>(c => c.OneArgument("blah"));
+			Route.ShouldBe("/{first}");
+		}
+
+		[Fact]
+		public void When_detecting_greedy_and_the_first_parameter_is_greedy()
+		{
+			Convention = () => new ParameterNameRouteConvention().DetectGreedyArguments();
+			ExecuteConventionOn<GreedyController>(c => c.TwoArgumentsFirstGreedy("one", "two"));
+			Route.ShouldBe("/{firstGreedy}/{lastNot}");
+		}
+
+		[Fact]
+		public void When_detecting_greedy_and_the_last_parameter_is_greedy()
+		{
+			Convention = () => new ParameterNameRouteConvention().DetectGreedyArguments();
+			ExecuteConventionOn<GreedyController>(c => c.TwoArgumentsLastGreedy("one", "two"));
+			Route.ShouldBe("/{firstNot}/{*lastGreedy}");
 		}
 
 		private class Controller : ApiController
@@ -65,6 +97,14 @@ namespace Conifer.Tests.Conventions
 			public void TwoArguments(string text, int value) { }
 			public void ParamArgument(params string[] items) { }
 			public void BodyArgument([FromBody]string value) { }
+		}
+
+		private class GreedyController : ApiController
+		{
+			public void NoArguments() { }
+			public void OneArgument(string first) { }
+			public void TwoArgumentsFirstGreedy(string firstGreedy, string lastNot) { }
+			public void TwoArgumentsLastGreedy(string firstNot, string lastGreedy) { }
 		}
 
 	}

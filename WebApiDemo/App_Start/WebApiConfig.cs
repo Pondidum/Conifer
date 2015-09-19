@@ -19,12 +19,13 @@ namespace WebApiDemo
 				{
 					new ControllerNameRouteConvention(),
 					new MethodNameRouteConvention(),
-					new ParameterNameRouteConvention(),
+					new ParameterNameRouteConvention().DetectGreedyArguments(),
 					new RawRouteConvention()
 				});
 
 				r.AddAll<HomeController>(null);	//no conventions applied to this route
 				r.AddAll<PersonController>();
+				r.AddAll<GreedyController>();
 			});
 
 			//configure your container of choice
