@@ -24,6 +24,10 @@ namespace Conifer.Tests
 			router.LinkTo<HomeController>(c => c.Get()).ShouldBe("");
 			router.LinkTo<PersonController>(c => c.Get()).ShouldBe("Tests/Person");
 			router.LinkTo<PersonController>(c => c.GetByID(123)).ShouldBe("Tests/Person/ByID/123");
+
+			router.TemplateFor<HomeController>(c => c.Get()).ShouldBe("");
+			router.TemplateFor<PersonController>(c => c.Get()).ShouldBe("Tests/Person");
+			router.TemplateFor<PersonController>(c => c.GetByID(123)).ShouldBe("Tests/Person/ByID/{id}");
 		}
 
 		[Fact]
@@ -37,6 +41,9 @@ namespace Conifer.Tests
 
 			router.LinkTo<MultiMethodController>(c => c.Get()).ShouldBe("Tests/MultiMethod");
 			router.LinkTo<MultiMethodController>(c => c.Get(123)).ShouldBe("Tests/MultiMethod/123");
+
+			router.TemplateFor<MultiMethodController>(c => c.Get()).ShouldBe("Tests/MultiMethod");
+			router.TemplateFor<MultiMethodController>(c => c.Get(123)).ShouldBe("Tests/MultiMethod/{id}");
 		}
 
 		[Fact]
@@ -49,6 +56,7 @@ namespace Conifer.Tests
 			});
 
 			router.LinkTo<MultiMethodController>(c => c.Get(456)).ShouldBe("Tests/MultiMethod/456");
+			router.TemplateFor<MultiMethodController>(c => c.Get(456)).ShouldBe("Tests/MultiMethod/{id}");
 		}
 
 		[Fact]

@@ -47,6 +47,14 @@ namespace Conifer
 			return template;
 		}
 
+		public string TemplateFor<T>(Expression<Action<T>> expression)
+		{
+			var info = MethodBuilder.GetMethodInfo(expression);
+			var routes = RoutesFor(info.Class, info.Method.Name, info.Parameters.Keys);
+
+			return routes.First().Template;
+		}
+
 		public IEnumerable<TypedRoute> RoutesFor(Type controllerType, string actionName)
 		{
 			return _routes
