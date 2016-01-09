@@ -10,6 +10,8 @@ namespace Conifer.Conventions
 	{
 		private readonly HashSet<string> _names;
 		private bool _matchGreedy;
+		private int? _skip;
+		private int? _take;
 
 		public ParameterNameRouteConvention()
 		{
@@ -39,9 +41,17 @@ namespace Conifer.Conventions
 				}
 			}
 
+			var routeParts = parts.AsEnumerable();
+
+			if (_skip.HasValue)
+				routeParts = routeParts.Skip(_skip.Value);
+
+			if (_take.HasValue)
+				routeParts = routeParts.Take(_take.Value);
+
 			template
 				.Parts
-				.AddRange(parts.Select(p => new ParameterRoutePart { Value = "{" + p + "}" }));
+				.AddRange(routeParts.Select(p => new ParameterRoutePart { Value = "{" + p + "}" }));
 		}
 
 		public ParameterNameRouteConvention IgnoreArgumentsCalled(params string[] names)
@@ -58,5 +68,16 @@ namespace Conifer.Conventions
 			return this;
 		}
 
+		public ParameterNameRouteConvention Skip(int skip)
+		{
+			_skip = skip;
+			return this;
+		}
+
+		public ParameterNameRouteConvention Take(int take)
+		{
+			_take = take;
+			return this;
+		}
 	}
 }

@@ -90,11 +90,30 @@ namespace Conifer.Tests.Conventions
 			Route.ShouldBe("/{firstNot}/{*lastGreedy}");
 		}
 
+		[Fact]
+		public void When_skipping_a_parameter()
+		{
+			Convention = () => new ParameterNameRouteConvention().Skip(1);
+			ExecuteConventionOn<Controller>(c => c.ThreeArguments("one", "two", "three"));
+
+			Route.ShouldBe("/{second}/{third}");
+		}
+
+		[Fact]
+		public void When_taking_a_parameter()
+		{
+			Convention = () => new ParameterNameRouteConvention().Take(1);
+			ExecuteConventionOn<Controller>(c => c.ThreeArguments("one", "two", "three"));
+
+			Route.ShouldBe("/{first}");
+		}
+
 		private class Controller : ApiController
 		{
 			public void NoArguments() { }
 			public void OneArgument(string test) { }
 			public void TwoArguments(string text, int value) { }
+			public void ThreeArguments(string first, string second, string third) { }
 			public void ParamArgument(params string[] items) { }
 			public void BodyArgument([FromBody]string value) { }
 		}
