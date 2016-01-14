@@ -27,7 +27,7 @@ namespace Conifer
 
 			var template = string.Join("/", Parts.Select(p => p.Value.Trim('/')));
 
-			return new TypedRoute(template, SupportedMethods, Controller, Method.Name);
+			return new TypedRoute(template, SupportedMethods, Controller, Method);
 		}
 	}
 }

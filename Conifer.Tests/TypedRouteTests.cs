@@ -12,7 +12,7 @@ namespace Conifer.Tests
 		[Fact]
 		public void When_a_non_controller_type_is_passed_in()
 		{
-			Should.Throw<ArgumentException>(() => new TypedRoute("test", new HashSet<HttpMethod>(),  typeof (Scratchpad), "ToString"));
+			Should.Throw<ArgumentException>(() => new TypedRoute("test", new HashSet<HttpMethod>(),  typeof (Scratchpad), typeof(BooksController).GetMethod("ToString")));
 		}
 
 		[Fact]
@@ -22,7 +22,7 @@ namespace Conifer.Tests
 				"api/{controller}/{action}",
 				new HashSet<HttpMethod> { HttpMethod.Get },
 				typeof(BooksController),
-				"GetAllBooks");
+				typeof(BooksController).GetMethod("GetAllBooks"));
 
 			route.ToString().ShouldBe("[GET] api/{controller}/{action}");
 		}
@@ -34,7 +34,7 @@ namespace Conifer.Tests
 				"api/{controller}/{action}",
 				new HashSet<HttpMethod> { HttpMethod.Get, HttpMethod.Post },
 				typeof(BooksController),
-				"GetAllBooks");
+				typeof(BooksController).GetMethod("GetAllBooks"));
 
 			route.ToString().ShouldBe("[GET POST] api/{controller}/{action}");
 		}
